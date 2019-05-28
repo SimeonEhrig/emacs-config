@@ -46,3 +46,7 @@
  ;; to install use following command in emcas (RET means key enter): M-x package-install RET xclip RET
 (xclip-mode 1)
 (setq select-enable-clipboard t)
+
+ ;; swap shortcut of move to begin and move to indentation
+(global-set-key (kbd "M-m") 'move-beginning-of-line)
+(global-set-key (kbd "C-a") 'back-to-indentation)
