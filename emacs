@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -31,3 +38,11 @@
   kept-new-versions 20   ; how many of the newest versions to keep
   kept-old-versions 5    ; and how many of the old
   )
+
+;; C-j kills from the cursor back to the beginning of the line
+(global-set-key "\C-j" '(lambda () (interactive) (kill-line 0)) )
+
+ ;; enable copy/paste between emacs and x11
+ ;; to install use following command in emcas (RET means key enter): M-x package-install RET xclip RET
+(xclip-mode 1)
+(setq select-enable-clipboard t)
