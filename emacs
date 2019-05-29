@@ -50,3 +50,6 @@
  ;; swap shortcut of move to begin and move to indentation
 (global-set-key (kbd "M-m") 'move-beginning-of-line)
 (global-set-key (kbd "C-a") 'back-to-indentation)
+
+ ;; show cursor position within line
+(column-number-mode 1)
