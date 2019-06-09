@@ -59,3 +59,18 @@
 
  ;; show cursor position within line
 (column-number-mode 1)
+
+ ;; enable on the fly spellcheck
+ ;;  spellcheck for the complete text
+(add-hook 'text-mode-hook 'flyspell-mode)
+ ;;  spellcheck just for comments and strings (depends on the prog language)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+;; flyspell popup-menu -> see:
+;; install
+;;  1. add melpa repository -> see beginning of file
+;;  2. run 'M-x package-install RET flyspell-popup RET'
+;; this defines a shortcut, to open the spellcheck pop-menu
+(global-set-key (kbd "M-$") 'flyspell-popup-correct)
+;; when this mode is enabled, the spellchecker pop menu opens if the cursor stays on the wrong word for more than one second
+(add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
