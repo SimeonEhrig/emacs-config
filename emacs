@@ -28,6 +28,10 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; the ido mode improve the path navigation in the mini buffer
+(require 'ido)
+(ido-mode t)
+
 ;; enable c++-mode at cuda cu.files
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 
