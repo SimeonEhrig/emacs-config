@@ -22,7 +22,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (company-jedi jedi auto-complete epc markdown-mode flyspell-popup xclip))))
+    (company company-jedi jedi auto-complete epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

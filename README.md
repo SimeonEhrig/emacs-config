@@ -66,7 +66,7 @@ Jedi is an IDE extension which provides support for Python: https://github.com/t
 ### Prepare python
 Often the system python is not used due of compatibility and user permissions. This tutorial describes how to use a (mini)conda python with emacs-jedi.
 
-First, you have to install (mini)conda and pip and virtualenv with conda.
+Install (mini)conda and pip and virtualenv with conda.
 
 ```bash
 # install conda
@@ -77,19 +77,6 @@ chmod u+x Miniconda3-latest-Linux-x86_64.sh
 # maybe you need to add conda to $PATH by yourself
 conda install pip virtualenv
 ```
-
-Second create a virtual environment. In this example, the environment has the name "jedi".
-https://archive.zhimingwang.org/blog/2015-04-26-using-python-3-with-emacs-jedi.html
-
-```bash
-# Attention: Make sure that you use the conda tools and not the system tools.
-mkdir -p ~/.emacs.d/.python-environments
-virtualenv -p /<path_to_conda>/bin/python3 ~/.emacs.d/.python-environments/jedi
-# If you feel like installing the server with 'M-x jedi:install-server', also do the following
-~/.emacs.d/.python-environments/jedi/bin/pip install --upgrade ~/.emacs.d/elpa/jedi-20150109.2230/  # you might need to change the version number
-```
-
-If you use a name other than "jedi" for your environment, you must also change the line `(setq jedi:environment-root "jedi")` in the dot file.
 
 ### install jedi in emacs
 ```
@@ -112,3 +99,17 @@ M-x package-install RET jedi RET
 # run in emacs
 M-x package-install RET company-jedi RET
 ```
+
+### set python environment in emacs
+Create a virtual environment and setup in emacs. In this example, the environment has the name "jedi".
+https://archive.zhimingwang.org/blog/2015-04-26-using-python-3-with-emacs-jedi.html
+
+```bash
+# Attention: Make sure that you use the conda tools and not the system tools.
+mkdir -p ~/.emacs.d/.python-environments
+virtualenv -p /<path_to_conda>/bin/python3 ~/.emacs.d/.python-environments/jedi
+# If you feel like installing the server with 'M-x jedi:install-server', also do the following
+~/.emacs.d/.python-environments/jedi/bin/pip install --upgrade ~/.emacs.d/elpa/jedi-20150109.2230/  # you might need to change the version number
+```
+
+If you use a name other than "jedi" for your environment, you must also change the line `(setq jedi:environment-root "jedi")` in the dot file.
