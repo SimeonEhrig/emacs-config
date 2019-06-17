@@ -20,7 +20,9 @@
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(custom-enabled-themes (quote (tsdh-dark)))
- '(package-selected-packages (quote (markdown-mode flyspell-popup xclip))))
+ '(package-selected-packages
+   (quote
+    (company-jedi jedi auto-complete epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -78,3 +80,19 @@
 (global-set-key (kbd "M-$") 'flyspell-popup-correct)
 ;; when this mode is enabled, the spellchecker pop menu opens if the cursor stays on the wrong word for more than one second
 (add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
+
+;; company is a backend for auto completion in different modes (https://company-mode.github.io/)
+(add-hook 'after-init-hook 'global-company-mode)
+(global-set-key (kbd "M-#") 'company-complete)
+
+;; ================== IDE extensions ==================
+;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
+
+;; jedi is a python mode (https://github.com/tkf/emacs-jedi)
+;; it improves developing python in emacs
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:environment-root "jedi")  ; jedi is the name of the environment
+;; company completion on jedi (https://github.com/syohex/emacs-company-jedi)
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'my/python-mode-hook)
