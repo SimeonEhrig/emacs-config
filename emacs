@@ -138,3 +138,13 @@ This command does not push text to `kill-ring'."
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
+
+;; sphinx-doc generate documentation templates in python
+;; source (fork): https://github.com/zasma/sphinx-doc.el
+;; package-file is in $HOME/.emacs.d/lisp/sphinx-doc.el
+;; shortcut: C-c M-d
+(add-hook 'python-mode-hook (lambda ()
+                                  (require 'sphinx-doc)
+                                  (sphinx-doc-mode t)))
+;; enable documentation templates for *args and  **kwarg
+(setq sphinx-doc-all-arguments t)
