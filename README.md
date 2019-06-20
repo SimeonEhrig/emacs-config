@@ -113,3 +113,14 @@ virtualenv -p /<path_to_conda>/bin/python3 ~/.emacs.d/.python-environments/jedi
 ```
 
 If you use a name other than "jedi" for your environment, you must also change the line `(setq jedi:environment-root "jedi")` in the dot file.
+
+#### installing modules
+**Attention:** If you want auto completion for modules you have installed yourself, you need to enable the environment (default: jedi) you use in emacs.
+
+```bash
+source $JEDI_ENV_PATH~/.emacs.d/.python-environments/jedi/bin/activate
+```
+
+**Attention:** If you have loaded the environment, it is still possible that the `python`, `python3`, `pip` and `pip3` commands point to executables which are not part of the environment. Make sure you run the right tools. To be on safe side, simply run the `load-jedi-python.sh` script.
+
+To verify that the installation was correct, run `M+x run-python RET` in emacs and try to import the module.

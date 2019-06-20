@@ -127,6 +127,11 @@ This command does not push text to `kill-ring'."
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "M-#") 'company-complete)
 
+;; remove trailing whitespaces in source code files
+(defun nuke_traling ()
+  (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+(add-hook 'prog-mode-hook #'nuke_traling)
+
 ;; ================== IDE extensions ==================
 ;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
 
@@ -138,6 +143,13 @@ This command does not push text to `kill-ring'."
 (defun my/python-mode-hook ()
   (add-to-list 'company-backends 'company-jedi))
 (add-hook 'python-mode-hook 'my/python-mode-hook)
+
+;; run interactive python interpreter on script
+;; 1. M-x run-python
+;; C-c C-z
+(setq python-shell-interpreter
+      (expand-file-name
+       (concat (getenv "HOME") "/.emacs.d/.python-environments/jedi/bin/python3")))
 
 ;; sphinx-doc generate documentation templates in python
 ;; source (fork): https://github.com/zasma/sphinx-doc.el
