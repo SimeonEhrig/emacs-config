@@ -132,6 +132,13 @@ This command does not push text to `kill-ring'."
   (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
 (add-hook 'prog-mode-hook #'nuke_traling)
 
+;; windmove is a built-in function that allows you to change the window selectively
+;; it improves the functionality of 'C-x o'.
+(global-set-key (kbd "C-c <left>")  'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>")    'windmove-up)
+(global-set-key (kbd "C-c <down>")  'windmove-down)
+
 ;; ================== IDE extensions ==================
 ;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
 
