@@ -154,6 +154,10 @@ buffer is not visiting a file."
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+;; the original shortcut is M-|
+;; but some German keyboards are too cheep to execute this combination
+(global-set-key (kbd "M-_")  'shell-command-on-region)
+
 ;; ================== IDE extensions ==================
 ;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
 
