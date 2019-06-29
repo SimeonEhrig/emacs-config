@@ -130,3 +130,16 @@ source $JEDI_ENV_PATH~/.emacs.d/.python-environments/jedi/bin/activate
 **Attention:** If you have loaded the environment, it is still possible that the `python`, `python3`, `pip` and `pip3` commands point to executables which are not part of the environment. Make sure you run the right tools. To be on safe side, simply run the `load-jedi-python.sh` script.
 
 To verify that the installation was correct, run `M+x run-python RET` in emacs and try to import the module.
+
+# Macros
+Steps to describe creating a macro, saving and loading it
+
+## create macros
+
+Enter `<f3>` to start recording, then the sequence and save it with `<f4>`. You can edit the macro with `C-x e`. The `name-last-kbd-macro` (`C-x C-k n`) command names the last macro. Now it can be called via `M-x`. With `C-x C-k b` you can temporarily bind the macro to a key.
+
+## save a macro
+Open a file, for example `~/.emacs.d/macros/gen.macs`. Go to the end and copy the last macro with `insert-kbd-macro`. Save it finally.
+
+## load the macro
+You can simply load the macros from file with `load-file`. If you want to load a macro at start up, just add a line to the `.emacs` file. You can also use the `global-set-key` function to bind the macro to a key combination at startup.

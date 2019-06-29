@@ -186,3 +186,8 @@ buffer is not visiting a file."
                                   (sphinx-doc-mode t)))
 ;; enable documentation templates for *args and  **kwarg
 (setq sphinx-doc-all-arguments t)
+
+;; ====================== Macros ======================
+;; load macros from file and maybe bind to key
+;;(load-file "~/.emacs.d/macros/gen.macs")
+;;(global-company-mode "\C-x\C-kT" 'myMacro)
