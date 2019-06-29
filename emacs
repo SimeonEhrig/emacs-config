@@ -158,6 +158,9 @@ buffer is not visiting a file."
 ;; but some German keyboards are too cheep to execute this combination
 (global-set-key (kbd "M-_")  'shell-command-on-region)
 
+;; original shortcut is C-x z
+(global-set-key (kbd "M-<f3>")  'repeat)
+
 ;; ================== IDE extensions ==================
 ;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
 
