@@ -161,6 +161,12 @@ buffer is not visiting a file."
 ;; original shortcut is C-x z
 (global-set-key (kbd "M-<f3>")  'repeat)
 
+;; another shortcut for switching framework
+(global-set-key (kbd "C-x <down>") 'other-frame)
+
+;; another shortcut for comment-line
+(global-set-key (kbd "C-x ;") 'comment-line)
+
 ;; ================== IDE extensions ==================
 ;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
 
