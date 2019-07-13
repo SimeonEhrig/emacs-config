@@ -131,6 +131,14 @@ buffer is not visiting a file."
 ;; another shortcut for comment-line
 (global-set-key (kbd "C-x ;") 'comment-line)
 
+(require 'gud)
+(define-key gud-mode-map (kbd "<f6>") 'gud-step)
+(define-key gud-mode-map (kbd "<f7>") 'gud-next)
+(define-key gud-mode-map (kbd "<f8>") 'gud-finish)
+(add-hook 'gud-mode
+	  (lambda ()
+	    (setq completion-at-point-functions nil)))
+
 (define-key emacs-lisp-mode-map (kbd "C-j") 'eval-print-last-sexp)
 (define-key emacs-lisp-mode-map (kbd "C-c j") 'eval-defun)
 
