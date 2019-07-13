@@ -140,9 +140,15 @@ buffer is not visiting a file."
 	  (lambda ()
 	    (setq completion-at-point-functions nil)))
 
-;; symon is a hardware monitor, which display cpu, memory and more in the mini-buffer
+;; symon is a hardware monitor, which display cpu, memory usage and more in the mini-buffer
 ;; https://github.com/zk-phi/symon
 (require 'symon)
+
+;; add shortcut to the dired-mode
+(add-hook
+ 'dired-mode-hook
+ (lambda()
+   (define-key dired-mode-map "J" 'ido-dired)))
 
 (define-key emacs-lisp-mode-map (kbd "C-j") 'eval-print-last-sexp)
 (define-key emacs-lisp-mode-map (kbd "C-c j") 'eval-defun)
