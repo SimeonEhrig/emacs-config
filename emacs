@@ -131,6 +131,9 @@ buffer is not visiting a file."
 ;; another shortcut for comment-line
 (global-set-key (kbd "C-x ;") 'comment-line)
 
+(define-key emacs-lisp-mode-map (kbd "C-j") 'eval-print-last-sexp)
+(define-key emacs-lisp-mode-map (kbd "C-c j") 'eval-defun)
+
 ;; ================== IDE extensions ==================
 ;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
 
