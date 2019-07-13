@@ -53,11 +53,19 @@ is reversed from that of the load function."
 With argument, do this that many times.
 This command does not push text to `kill-ring'."
   (interactive "p")
-  (delete-region
-   (point)
-   (progn
-     (forward-word arg)
-     (point))))
+  ;; if end of line, don't delete the word on the next or previous line
+  ;; just remove the new line
+  (if (eolp)
+      (if (> arg 0)
+	  (delete-forward-char 1)
+	(backward-delete-char-untabify 1))
+    (progn
+      (delete-region
+       (point)
+       (progn
+	 (forward-word arg)
+	 (point)))
+      )))
 
 (defun my-backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
@@ -70,17 +78,22 @@ This command does not push text to `kill-ring'."
   "Delete text from current position to end of line char.
 This command does not push text to `kill-ring'."
   (interactive)
-  (delete-region
-   (point)
-   (progn (end-of-line 1) (backward-char 1) (point)))
-  (delete-char 1))
+  (if (eolp)
+      (delete-forward-char 1)
+    (progn
+      (delete-region
+       (point)
+       (progn (end-of-line 1) (backward-char 1) (point)))
+      (delete-char 1))))
 
 (defun my-delete-line-backward ()
   "Delete text between the beginning of the line to the cursor position.
 This command does not push text to `kill-ring'."
   (interactive)
-  (let (p1 p2)
-    (setq p1 (point))
-    (beginning-of-line 1)
-    (setq p2 (point))
-    (delete-region p1 p2)))
+  (if (bolp)
+      (backward-delete-char-untabify 1)
+    (let (p1 p2)
+      (setq p1 (point))
+      (beginning-of-line 1)
+      (setq p2 (point))
+      (delete-region p1 p2))))
