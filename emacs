@@ -131,6 +131,7 @@ buffer is not visiting a file."
 ;; another shortcut for comment-line
 (global-set-key (kbd "C-x ;") 'comment-line)
 
+;; gud is a general interface for debugger
 (require 'gud)
 (define-key gud-mode-map (kbd "<f6>") 'gud-step)
 (define-key gud-mode-map (kbd "<f7>") 'gud-next)
@@ -138,6 +139,10 @@ buffer is not visiting a file."
 (add-hook 'gud-mode
 	  (lambda ()
 	    (setq completion-at-point-functions nil)))
+
+;; symon is a hardware monitor, which display cpu, memory and more in the mini-buffer
+;; https://github.com/zk-phi/symon
+(require 'symon)
 
 (define-key emacs-lisp-mode-map (kbd "C-j") 'eval-print-last-sexp)
 (define-key emacs-lisp-mode-map (kbd "C-c j") 'eval-defun)
