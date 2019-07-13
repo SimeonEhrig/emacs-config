@@ -1,6 +1,10 @@
 # emacs-config
 My personal emacs configuration
 
+# General Information
+
+Self-defined functions are stored in the `~/.emacs.d/lisp/help_function` subfolder. All functions in the autoload.el file are loaded at start up.
+
 # Installation
 - Run `install.sh` or link/copy emacs to $HOME/.emacs and lisp to $HOME/.emacs.d/
 - If you did not run the `install.sh`, create the folder `$HOME/.emacs.d/backup`
