@@ -5,6 +5,10 @@ My personal emacs configuration
 
 Self-defined functions are stored in the `~/.emacs.d/lisp/help_function` subfolder. All functions in the autoload.el file are loaded at start up.
 
+## Major Modes
+
+The configurations of the main modes are stored in the `modes` folder. This is because configuring some major modes is difficult and some major modes are not necessary on certain systems, such as Irony mode on a server system. To enable a mode, simply link or copy the `conf_*.el` to the folder `~/.emacs.d/modes` (don't forget additional configurations).
+
 # Installation
 - Run `install.sh` or link/copy emacs to $HOME/.emacs and lisp to $HOME/.emacs.d/
 - If you did not run the `install.sh`, create the folder `$HOME/.emacs.d/backup`

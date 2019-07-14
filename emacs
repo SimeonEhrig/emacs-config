@@ -1,8 +1,30 @@
-;; install melpa package repository for extra packages
+;; =============================================================================
+;; =========================== melpa package manager ===========================
+;; =============================================================================
+
+;; melpa package repository for extra packages
 (require 'package)
 ;; run 'M-x package-refresh-contents RET' to get the melpa packages
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+;; =============================================================================
+;; ================ load emacs lisp functions from extra files  ================
+;; =============================================================================
+
+;; absolute path of ~/.emacs.d
+(setq emacs-home (expand-file-name (concat (getenv "HOME") "/.emacs.d/")))
+;; the directory contains packages which are not available at the package manager
+(setq load-path (cons (concat emacs-home "lisp") load-path))
+;; self-defined general functions
+(load-file (concat emacs-home "lisp/help_function/autoload.el"))
+;; configuration for different modes
+(dolist (config (directory-files (concat emacs-home "modes") t ".el"))
+  (load-file config))
+
+;; =============================================================================
+;; ============================== auto generated ===============================
+;; =============================================================================
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -30,71 +52,68 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; =============================================================================
+;; =============================== enable modes ================================
+;; =============================================================================
+
 ;; the ido mode improve the path navigation in the mini buffer
 (require 'ido)
 (ido-mode t)
+;; add llvm ir highlighting
+;; from offical repo: https://github.com/llvm-mirror/llvm/tree/e74acf4ba7bb2df0b2a04548061b4c886efc368a/utils/emacs
+(require 'llvm-mode)
+;; symon is a hardware monitor, which display cpu, memory usage and more in the mini-buffer
+;; https://github.com/zk-phi/symon
+(require 'symon)
+
+;; =============================================================================
+;; =========================== configure main usage ============================
+;; =============================================================================
 
 ;; enable c++-mode at cuda cu.files
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
+;; because the .emacs file is a link to the not hidden emacs file, automatic loading of the major mode does not work
+(add-to-list 'auto-mode-alist '("\\emacs\\'" . emacs-lisp-mode))
 
-;; add llvm ir highlighting (from offical repo: https://github.com/llvm-mirror/llvm/tree/e74acf4ba7bb2df0b2a04548061b4c886efc368a/utils/emacs)
-(setq load-path
-    (cons (expand-file-name (concat (getenv "HOME") "/.emacs.d/lisp")) load-path))
-  (require 'llvm-mode)
-
-;; save all backup files to a central directory
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
-  backup-by-copying t    ; Don't delink hardlinks
-  version-control t      ; Use version numbers on backups
-  delete-old-versions t  ; Automatically delete excess backups
-  kept-new-versions 20   ; how many of the newest versions to keep
-  kept-old-versions 5    ; and how many of the old
-  )
-
-;; self-defined general functions
-(load-file (expand-file-name (concat (getenv "HOME") "/.emacs.d/lisp/help_function/autoload.el")))
-
-; bind them to emacs's default shortcut keys:
-(global-set-key (kbd "C-j") 'my-delete-line-backward) ; Ctrl+Shift+k
-(global-set-key (kbd "C-k") 'my-delete-line)
-(global-set-key (kbd "<C-delete>") 'my-delete-word)
-(global-set-key (kbd "<M-DEL>") 'my-backward-delete-word)
-
- ;; enable copy/paste between emacs and x11
- ;; to install use following command in emcas (RET means key enter): M-x package-install RET xclip RET
+;; enable copy/paste between emacs and x11
+;; to install use following command in emcas (RET means key enter): M-x package-install RET xclip RET
 (xclip-mode 1)
 (setq select-enable-clipboard t)
 
- ;; swap shortcut of move to begin and move to indentation
-(global-set-key (kbd "M-m") 'move-beginning-of-line)
-(global-set-key (kbd "C-a") 'back-to-indentation)
-
- ;; show cursor position within line
+;; show cursor position within line
 (column-number-mode 1)
 
- ;; enable on the fly spellcheck
- ;;  spellcheck for the complete text
+;; enable on the fly spellcheck
+;; spellcheck for the complete text
 (add-hook 'text-mode-hook 'flyspell-mode)
- ;;  spellcheck just for comments and strings (depends on the prog language)
+;;  spellcheck just for comments and strings (depends on the prog language)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
-;; flyspell popup-menu -> see:
-;; install
-;;  1. add melpa repository -> see beginning of file
-;;  2. run 'M-x package-install RET flyspell-popup RET'
-;; this defines a shortcut, to open the spellcheck pop-menu
-(global-set-key (kbd "M-$") 'flyspell-popup-correct)
 ;; when this mode is enabled, the spellchecker pop menu opens if the cursor stays on the wrong word for more than one second
 (add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
 
 ;; company is a backend for auto completion in different modes (https://company-mode.github.io/)
 (add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "M-#") 'company-complete)
 
-;; remove trailing whitespaces in source code files
-(defun nuke_traling ()
-  (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
-(add-hook 'prog-mode-hook #'nuke_traling)
+;; =============================================================================
+;; ============================ global key bindings ============================
+;; =============================================================================
+
+;; replace the default emacs functions and do the same things without kill-ring
+;; bind them to emacs's default shortcut keys:
+(global-set-key (kbd "C-j") 'my-delete-line-backward) ; Ctrl+Shift+k
+(global-set-key (kbd "C-k") 'my-delete-line)
+(global-set-key (kbd "<C-delete>") 'my-delete-word)
+(global-set-key (kbd "<M-DEL>") 'my-backward-delete-word)
+
+;; swap shortcut of move to begin and move to indentation
+(global-set-key (kbd "M-m") 'move-beginning-of-line)
+(global-set-key (kbd "C-a") 'back-to-indentation)
+
+;; shortcut to open the spellcheck pop-menu
+(global-set-key (kbd "M-$") 'flyspell-popup-correct)
+
+;; open company completion popup
+(global-set-key (kbd "M-#") 'company-complete)
 
 ;; windmove is a built-in function that allows you to change the window selectively
 ;; it improves the functionality of 'C-x o'.
@@ -102,21 +121,6 @@
 (global-set-key (kbd "C-c <right>") 'windmove-right)
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
-
-;; add function to reopen a file with root permission
-;; C-x C-f <filename> RET M-x sudo-edit RET
-;; emacs itself runs with user permission
-(defun sudo-edit (&optional arg)
-  "Edit currently visited file as root.
-
-With a prefix ARG prompt for a file to visit.
-Will also prompt for a file to visit if current
-buffer is not visiting a file."
-  (interactive "P")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:"
-                         (ido-read-file-name "Find file(as root): ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;; the original shortcut is M-|
 ;; but some German keyboards are too cheep to execute this combination
@@ -131,58 +135,34 @@ buffer is not visiting a file."
 ;; another shortcut for comment-line
 (global-set-key (kbd "C-x ;") 'comment-line)
 
-;; gud is a general interface for debugger
-(require 'gud)
-(define-key gud-mode-map (kbd "<f6>") 'gud-step)
-(define-key gud-mode-map (kbd "<f7>") 'gud-next)
-(define-key gud-mode-map (kbd "<f8>") 'gud-finish)
-(add-hook 'gud-mode
-	  (lambda ()
-	    (setq completion-at-point-functions nil)))
-
-;; symon is a hardware monitor, which display cpu, memory usage and more in the mini-buffer
-;; https://github.com/zk-phi/symon
-(require 'symon)
-
 ;; add shortcut to the dired-mode
 (add-hook
  'dired-mode-hook
  (lambda()
    (define-key dired-mode-map "J" 'ido-dired)))
 
-(define-key emacs-lisp-mode-map (kbd "C-j") 'eval-print-last-sexp)
-(define-key emacs-lisp-mode-map (kbd "C-c j") 'eval-defun)
+;; =============================================================================
+;; =================================== other ===================================
+;; =============================================================================
 
-;; ================== IDE extensions ==================
-;; IDE extensions are really hard to handle. Therefore, it is sometimes better to disable them when they are not in use.
+;; save all backup files to a central directory
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  backup-by-copying t    ; Don't delink hardlinks
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )
 
-;; jedi is a python mode (https://github.com/tkf/emacs-jedi)
-;; it improves developing python in emacs
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:environment-root "jedi")  ; jedi is the name of the environment
-;; company completion on jedi (https://github.com/syohex/emacs-company-jedi)
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-(add-hook 'python-mode-hook 'my/python-mode-hook)
+;; remove trailing whitespaces in source code files
+(defun nuke_traling ()
+  (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+(add-hook 'prog-mode-hook #'nuke_traling)
 
-;; run interactive python interpreter on script
-;; 1. M-x run-python
-;; C-c C-z
-(setq python-shell-interpreter
-      (expand-file-name
-       (concat (getenv "HOME") "/.emacs.d/.python-environments/jedi/bin/python3")))
+;; =============================================================================
+;; ================================== Macros ===================================
+;; =============================================================================
 
-;; sphinx-doc generate documentation templates in python
-;; source (fork): https://github.com/zasma/sphinx-doc.el
-;; package-file is in $HOME/.emacs.d/lisp/sphinx-doc.el
-;; shortcut: C-c M-d
-(add-hook 'python-mode-hook (lambda ()
-                                  (require 'sphinx-doc)
-                                  (sphinx-doc-mode t)))
-;; enable documentation templates for *args and  **kwarg
-(setq sphinx-doc-all-arguments t)
-
-;; ====================== Macros ======================
 ;; load macros from file and maybe bind to key
-;;(load-file "~/.emacs.d/macros/gen.macs")
-;;(global-company-mode "\C-x\C-kT" 'myMacro)
+;; (load-file "~/.emacs.d/macros/gen.macs")
+;; (global-company-mode "\C-x\C-kT" 'myMacro)
