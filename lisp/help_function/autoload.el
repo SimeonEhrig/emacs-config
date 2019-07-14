@@ -97,3 +97,36 @@ This command does not push text to `kill-ring'."
       (beginning-of-line 1)
       (setq p2 (point))
       (delete-region p1 p2))))
+
+(defun expand-headline-to-80 ()
+  "Transform lisp comment into well-formatted headline with a length of 80.
+
+Example:
+Original : ;; Headline 1
+Formatted: ;; ================================ Headline 1 =================================
+
+The comment must begin with \";; \" and must not longer than 76 characters. If it is an empty comment line, the rest of the line is filled with =.
+"
+  (interactive)
+  (save-excursion
+    (setq currentLine (filter-buffer-substring (line-beginning-position) (line-end-position)))
+    ;; string must begin with comment char and must not to be longer than 76 chars
+    ;; at least 4 chars are necessary for "= <text> ="
+    (if (and (string-prefix-p ";; " currentLine)
+	     (<= (length currentLine) 76))
+	(if (= (length currentLine) 3)
+	    ;; line is empty
+	    (progn
+	      (goto-char (+ (line-beginning-position) 3))
+	      (insert-char ?= 77))
+	  (let* ((numberPrefix (/ (- 78 (length currentLine)) 2))
+		 (numberSuffix (- 78 (length currentLine) numberPrefix)))
+	    (progn
+	      (goto-char (+ (line-beginning-position) 3))
+	      (insert-char ?= numberPrefix)
+	      ;; add whitespace
+	      (insert-char ?\s 1)
+	      (goto-char (line-end-position))
+	      (insert-char ?\s 1)
+	      (insert-char ?= numberSuffix))))))
+  (move-end-of-line 1))
