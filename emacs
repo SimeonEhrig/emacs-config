@@ -44,7 +44,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (cmake-mode company company-jedi jedi auto-complete epc markdown-mode flyspell-popup xclip))))
+    (helm-themes helm cmake-mode company company-jedi jedi auto-complete epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -66,6 +66,10 @@
 ;; https://github.com/zk-phi/symon
 (require 'symon)
 
+;; helm is a framework, which improve the UI of emacs
+;; https://github.com/emacs-helm/helm
+(require 'helm)
+(helm-mode t)
 ;; =============================================================================
 ;; =========================== configure main usage ============================
 ;; =============================================================================
@@ -140,6 +144,12 @@
  'dired-mode-hook
  (lambda()
    (define-key dired-mode-map "J" 'ido-dired)))
+
+;; replace default emacs functions with helm functions
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "C-x b") #'helm-buffers-list)
 
 ;; =============================================================================
 ;; =================================== other ===================================

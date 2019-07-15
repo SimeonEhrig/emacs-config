@@ -71,6 +71,13 @@ M-x package-install RET company RET
 M-x package-install RET cmake-mode RET
 ```
 
+## helm mode
+```
+# run in emacs
+M-x package-install RET helm RET
+M-x package-install RET helm-themes RET
+```
+
 # IDEs
 IDEs are really complex systems. Sometimes it takes some work to install an IDE. Therefore, it is better to disable this extension when it is not in use. The IDE extensions are located in an additional section in the point file.  So they can easily find and comment out.
 
