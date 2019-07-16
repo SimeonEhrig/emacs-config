@@ -83,8 +83,6 @@
 
 ;; enable c++-mode at cuda cu.files
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
-;; because the .emacs file is a link to the not hidden emacs file, automatic loading of the major mode does not work
-(add-to-list 'auto-mode-alist '("\\emacs\\'" . emacs-lisp-mode))
 
 ;; enable copy/paste between emacs and x11
 ;; to install use following command in emcas (RET means key enter): M-x package-install RET xclip RET
@@ -140,6 +138,11 @@
 (global-set-key (kbd "C-c <right>") 'windmove-right)
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
+;; if the C-c bindings are overwritten by another mode
+(global-set-key (kbd "C-x C-<left>")  'windmove-left)
+(global-set-key (kbd "C-x C-<right>") 'windmove-right)
+(global-set-key (kbd "C-x C-<up>")    'windmove-up)
+(global-set-key (kbd "C-x C-<down>")  'windmove-down)
 
 ;; the original shortcut is M-|
 ;; but some German keyboards are too cheep to execute this combination
