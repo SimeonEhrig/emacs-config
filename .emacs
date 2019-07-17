@@ -9,20 +9,6 @@
 (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;; =============================================================================
-;; ================ load emacs lisp functions from extra files  ================
-;; =============================================================================
-
-;; absolute path of ~/.emacs.d
-(setq emacs-home (expand-file-name (concat (getenv "HOME") "/.emacs.d/")))
-;; the directory contains packages which are not available at the package manager
-(setq load-path (cons (concat emacs-home "lisp") load-path))
-;; self-defined general functions
-(load-file (concat emacs-home "lisp/help_function/autoload.el"))
-;; configuration for different modes
-(dolist (config (directory-files (concat emacs-home "modes") t ".el"))
-  (load-file config))
-
-;; =============================================================================
 ;; ============================== auto generated ===============================
 ;; =============================================================================
 
@@ -50,7 +36,29 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(ediff-current-diff-A ((t (:foreground "White" :background "brown"))))
+ '(ediff-even-diff-A ((t (:background "blue"))))
+ '(ediff-even-diff-Ancestor ((t (:background "blue"))))
+ '(ediff-even-diff-B ((t (:background "blue"))))
+ '(ediff-even-diff-C ((t (:background "blue"))))
+ '(ediff-odd-diff-A ((t (:background "blue"))))
+ '(ediff-odd-diff-Ancestor ((t (:background "blue"))))
+ '(ediff-odd-diff-B ((t (:background "blue"))))
+ '(ediff-odd-diff-C ((t (:background "blue")))))
+
+;; =============================================================================
+;; ================ load emacs lisp functions from extra files  ================
+;; =============================================================================
+
+;; absolute path of ~/.emacs.d
+(setq emacs-home (expand-file-name (concat (getenv "HOME") "/.emacs.d/")))
+;; the directory contains packages which are not available at the package manager
+(setq load-path (cons (concat emacs-home "lisp") load-path))
+;; self-defined general functions
+(load-file (concat emacs-home "lisp/help_function/autoload.el"))
+;; configuration for different modes
+(dolist (config (directory-files (concat emacs-home "modes") t ".el"))
+  (load-file config))
 
 ;; =============================================================================
 ;; =============================== enable modes ================================
