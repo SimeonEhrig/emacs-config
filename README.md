@@ -40,11 +40,11 @@ The `setup.py` script installs and updates the emacs configuration. It creates d
 # Links to Projects
 
 * flyspell-popup
- * flyspell-popup is an extension of flyspell that displays the suggestions in a popup instead of a mini buffer on the top
- * https://github.com/xuchunyang/flyspell-popup
+  * flyspell-popup is an extension of flyspell that displays the suggestions in a popup instead of a mini buffer on the top
+  * https://github.com/xuchunyang/flyspell-popup
 * company
- * company is a universal auto complete system. It can be used for different languages like, plain text, C++, Python and so on
- * https://company-mode.github.io/
+  * company is a universal auto complete system. It can be used for different languages like, plain text, C++, Python and so on
+  * https://company-mode.github.io/
 
 # Macros
 Steps to describe creating a macro, saving and loading it
