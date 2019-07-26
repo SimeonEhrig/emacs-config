@@ -55,7 +55,7 @@
 
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-jedi
-				   dictcc epc flyspell-popup
+				   dictcc dash epc flyspell-popup
 				   helm helm-gtags helm-themes jedi
 				   markdown-mode s xclip))
 
