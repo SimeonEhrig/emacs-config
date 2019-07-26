@@ -1,19 +1,7 @@
 # emacs-config
 My personal emacs configuration
 
-# General Information
-
-Self-defined functions are stored in the `~/.emacs.d/lisp/help_function` subfolder. All functions in the autoload.el file are loaded at start up.
-
-## Major Modes
-
-The configurations of the main modes are stored in the `modes` folder. This is because configuring some major modes is difficult and some major modes are not necessary on certain systems, such as Irony mode on a server system. To enable a mode, simply link or copy the `conf_*.el` to the folder `~/.emacs.d/modes` (don't forget additional configurations).
-
-# Installation
-- Run `install.sh` or link/copy emacs to $HOME/.emacs and lisp to $HOME/.emacs.d/
-- If you did not run the `install.sh`, create the folder `$HOME/.emacs.d/backup`
-
-# get current version
+# Get current emacs version
 **Source:** https://launchpad.net/%7Ekelleyk/+archive/ubuntu/emacs
 
 ```bash
@@ -22,168 +10,41 @@ sudo apt-get update
 sudo update-alternatives --config emacs
 ```
 
-# Installation of extra packages
-**RET** in emacs means the enter key
+# Content of the Repository
 
-## Melpa
-Melpa is a package source for extra packages
+The following section describes the functions of the files and folders.
 
-```
-# run in emacs
-M-x package-refresh-contents RET
-```
+## lisp
 
-## xclip
-xclip and allow copies between emacs and X11
+The folder contains third-party packages that are not available in the package manager or are modified versions of the package versions. It also contains self-written functions. All functions in the autoload.el file are loaded at start up.
 
-```bash
-apt install xclip
-```
+## load-jedi-python.sh
 
-```
-# run in emacs
-M-x package-install RET xclip RET
-```
+The environment of the jedi python installation. See `modes/jedi`.
 
-## markdown mode
-```
-# run in emacs
-M-x package-install RET markdown-mode RET
-```
+## modes
 
-## flyspell-popup
-flyspell-popup is an extension of flyspell that displays the suggestions in a popup instead of a mini buffer on the top: https://github.com/xuchunyang/flyspell-popup
-```
-# run in emacs
-M-x package-install RET flyspell-popup RET
-```
+Contains various packages or compilations of packages that are not part of the standard installation. Often the modes require additional installation steps. To read the necessary steps, go to the `modes/*` folder and read the `README.md`. The `setup.py` asks if you want to install a mode.
 
-## company
-company is a universal auto complete system. It can be used for different languages like, plain text, C++, Python and so on: https://company-mode.github.io/
-```
-# run in emacs
-M-x package-install RET company RET
-```
+## setup.py
 
-## cmake mode
-```
-# run in emacs
-M-x package-install RET cmake-mode RET
-```
+The `setup.py` script installs and updates the emacs configuration. It creates different folders and creates different links. It is an interactive script that asks which mode to install. The script create the file `modes.json`. It saves your decisions about the modes.
 
-## helm mode
-helm is a framework, which improve the UI of emacs
+# Where can I find what
 
-```
-# run in emacs
-M-x package-install RET helm RET
-M-x package-install RET helm-themes RET
-```
+* **keybindings:** In the .emcas file in the section *global key bindings* or in the *.el files in the `modes/*` folder.
+* **Installed packages via package manager:** In the .emcas file in the section *install packages via package manager* or in the *.el files in the `modes/*` folder.
+* **necessary system packages:** The package names are stored in the `setup.py` in the global variable `apt_progs`.
+* **which modes are installed:** Stored in the `modes.json`.
 
-## helm-gtags
-gtags tags different constructs in source-code and allows fast navigation
+# Links to Projects
 
-```bash
-# build gtags from source because deb package on ubuntu is to old
-sudo apt install libncurses5-dev id-utils exuberant-ctags
-cd /tmp/
-wget https://ftp.gnu.org/pub/gnu/global/global-6.6.3.tar.gz
-tar -xvzf global-6.6.3.tar.gz
-cd global-6.6.3
-./configure --prefix=$HOME/global-6.6.3 --with-exuberant-ctags=/usr/bin/ctags-exuberant
-make && make install
-# I could not find a way to set the path to gtags in emacs
-PATH=$PATH:~/global-6.6.3
-```
-
-```
-# run in emacs
-M-x package-install RET helm-gtags RET
-```
-
-### create tags for a project
-
-```bash
-cd path/to/project/root
-gtags --gtagslabel=new-ctags
-```
-
-## dictcc
-
-Interface to dict.cc
-
-```
-# run in emacs
-M-x package-install RET dictcc RET
-```
-
-# IDEs
-IDEs are really complex systems. Sometimes it takes some work to install an IDE. Therefore, it is better to disable this extension when it is not in use. The IDE extensions are located in an additional section in the point file.  So they can easily find and comment out.
-
-## Jedi
-Jedi is an IDE extension which provides support for Python: https://github.com/tkf/emacs-jedi
-
-### Prepare python
-Often the system python is not used due of compatibility and user permissions. This tutorial describes how to use a (mini)conda python with emacs-jedi.
-
-Install (mini)conda and pip and virtualenv with conda.
-
-```bash
-# install conda
-wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod u+x Miniconda3-latest-Linux-x86_64.sh
-./Miniconda3-latest-Linux-x86_64.sh
-
-# maybe you need to add conda to $PATH by yourself
-conda install pip virtualenv
-```
-
-### install jedi in emacs
-```
-# run in emacs
-M-x package-install RET epc RET
-```
-
-```
-# run in emacs
-M-x package-install RET auto-complete RET
-```
-
-```
-# run in emacs
-M-x package-install RET jedi RET
-```
-
-### install company-jedi
-```
-# run in emacs
-M-x package-install RET company-jedi RET
-```
-
-### set python environment in emacs
-Create a virtual environment and setup in emacs. In this example, the environment has the name "jedi".
-https://archive.zhimingwang.org/blog/2015-04-26-using-python-3-with-emacs-jedi.html
-
-```bash
-# Attention: Make sure that you use the conda tools and not the system tools.
-mkdir -p ~/.emacs.d/.python-environments
-virtualenv -p /<path_to_conda>/bin/python3 ~/.emacs.d/.python-environments/jedi
-# If you feel like installing the server with 'M-x jedi:install-server', also do the following
-~/.emacs.d/.python-environments/jedi/bin/pip install --upgrade ~/.emacs.d/elpa/jedi-20150109.2230/  # you might need to change the version number
-```
-
-If you use a name other than "jedi" for your environment, you must also change the line `(setq jedi:environment-root "jedi")` in the dot file.
-
-#### installing modules
-**Attention:** If you want auto completion for modules you have installed yourself, you need to enable the environment (default: jedi) you use in emacs.
-
-```bash
-source $JEDI_ENV_PATH~/.emacs.d/.python-environments/jedi/bin/activate
-```
-
-**Attention:** If you have loaded the environment, it is still possible that the `python`, `python3`, `pip` and `pip3` commands point to executables which are not part of the environment. Make sure you run the right tools. To be on safe side, simply run the `load-jedi-python.sh` script.
-
-To verify that the installation was correct, run `M+x run-python RET` in emacs and try to import the module.
+* flyspell-popup
+ * flyspell-popup is an extension of flyspell that displays the suggestions in a popup instead of a mini buffer on the top
+ * https://github.com/xuchunyang/flyspell-popup
+* company
+ * company is a universal auto complete system. It can be used for different languages like, plain text, C++, Python and so on
+ * https://company-mode.github.io/
 
 # Macros
 Steps to describe creating a macro, saving and loading it

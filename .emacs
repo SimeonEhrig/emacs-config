@@ -1,3 +1,6 @@
+;; absolute path of ~/.emacs.d
+(setq emacs-home (expand-file-name (concat (getenv "HOME") "/.emacs.d/")))
+
 ;; =============================================================================
 ;; =========================== melpa package manager ===========================
 ;; =============================================================================
@@ -30,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi auto-complete epc markdown-mode flyspell-popup xclip))))
+    (s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -47,11 +50,39 @@
  '(ediff-odd-diff-C ((t (:background "blue")))))
 
 ;; =============================================================================
+;; =================== install packages via package manager ====================
+;; =============================================================================
+
+;; all packages, which have to installed via emacs package manager
+(setq my-package-list '(cmake-mode company company-jedi
+				   dictcc epc flyspell-popup
+				   helm helm-gtags helm-themes jedi
+				   markdown-mode s xclip))
+
+;; The file run_melpa contains the variable run-melpa. If the variable is true,
+;; new packages must be installed.
+;; The var is set by the setup.py script.
+(load (concat emacs-home "run_melpa.el"))
+(when run-melpa
+  (progn
+      (unless package-archive-contents
+	(package-refresh-contents))
+      (dolist (my-package my-package-list)
+	(unless (package-installed-p my-package)
+	  (progn
+	    (package-install my-package)
+	    (message "install package: %s" my-package)
+	    )))
+      ;; Set the variable to nil, otherwise all packages will be checked at
+      ;; every start, which unnecessarily increases the start time.
+      (write-region "(setq run-melpa nil)\n" nil (concat emacs-home "run_melpa.el")
+		    )))
+
+
+;; =============================================================================
 ;; ================ load emacs lisp functions from extra files  ================
 ;; =============================================================================
 
-;; absolute path of ~/.emacs.d
-(setq emacs-home (expand-file-name (concat (getenv "HOME") "/.emacs.d/")))
 ;; the directory contains packages which are not available at the package manager
 (setq load-path (cons (concat emacs-home "lisp") load-path))
 ;; self-defined general functions
