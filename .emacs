@@ -113,6 +113,17 @@
 (require 'helm)
 (helm-mode t)
 
+;; company is a backend for auto completion in different modes (https://company-mode.github.io/)
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
+(eval-after-load 'company
+   (progn
+     '(add-to-list 'company-backends
+		   'company-cmake
+		   )
+    ))
+
 ;; =============================================================================
 ;; =========================== configure main usage ============================
 ;; =============================================================================
