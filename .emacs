@@ -90,6 +90,9 @@
 ;; configuration for different modes
 (dolist (config (directory-files (concat emacs-home "modes") t ".el"))
   (load-file config))
+;; loads host-dependent configurations, e.g. paths to executables
+(if (file-exists-p (concat emacs-home "local-vars.el"))
+    (load-file (concat emacs-home "local-vars.el")))
 
 ;; =============================================================================
 ;; =============================== enable modes ================================
