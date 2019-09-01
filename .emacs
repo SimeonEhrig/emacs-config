@@ -136,8 +136,7 @@
 ;; when this mode is enabled, the spellchecker pop menu opens if the cursor stays on the wrong word for more than one second
 (add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
 
-;; company is a backend for auto completion in different modes (https://company-mode.github.io/)
-(add-hook 'after-init-hook 'global-company-mode)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ;; =============================================================================
 ;; ============================ global key bindings ============================
@@ -196,6 +195,9 @@
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 (global-set-key (kbd "C-x b") #'helm-buffers-list)
+
+;; run dictcc translation
+(global-set-key (kbd "M-ü") 'dictcc)
 
 ;; allow smart completion with <TAB>
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
