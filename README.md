@@ -16,7 +16,7 @@ The following section describes the functions of the files and folders.
 
 ## lisp
 
-The folder contains third-party packages that are not available in the package manager or are modified versions of the package versions. It also contains self-written functions. All functions in the autoload.el file are loaded at start up.
+The folder contains third-party packages that are not available in the package manager or are modified versions of the package versions. It also contains self-written functions. All functions in the `autoload.el` file are loaded at start up.
 
 ## load-jedi-python.sh
 
@@ -36,6 +36,7 @@ The `setup.py` script installs and updates the emacs configuration. It creates d
 * **Installed packages via package manager:** In the .emcas file in the section *install packages via package manager* or in the *.el files in the `modes/*` folder.
 * **necessary system packages:** The package names are stored in the `setup.py` in the global variable `apt_progs`.
 * **which modes are installed:** Stored in the `modes.json`.
+* **system-dependent configuration:** Some configurations are system dependent, e.g. paths to executables like clang or cmake. To specify system-dependent configurations, simply create a `local-vars.el` in your `.emacs.d` directory and write your emacs lisp code.
 
 # Links to Projects
 
