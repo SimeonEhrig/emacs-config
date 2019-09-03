@@ -145,3 +145,15 @@ buffer is not visiting a file."
       (find-file (concat "/sudo:root@localhost:"
                          (ido-read-file-name "Find file(as root): ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(defun double-element-in-list (l)
+  "Double each element in a list and append it directly behind its original
+
+(a b c) -> (a a b b c c)
+
+Thanks to Maximilian Böhme
+"
+  (if (car l)
+      (append (list (car l) (car l) ) (f (cdr l)))
+    '())
+  )
