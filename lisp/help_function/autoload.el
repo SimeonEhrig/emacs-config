@@ -154,6 +154,6 @@ buffer is not visiting a file."
 Thanks to Maximilian Böhme
 "
   (if (car l)
-      (append (list (car l) (car l) ) (f (cdr l)))
+      (append (list (car l) (car l) ) (double-element-in-list (cdr l)))
     '())
   )
