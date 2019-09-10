@@ -8,7 +8,7 @@ emacsd_path = home_path + '/.emacs.d'
 emacs_config_path = os.getcwd()
 
 # programs, which will installed via apt package manager
-apt_progs = ['xclip', 'aspell-de', 'aspell-en']
+apt_progs = ['xclip', 'aspell-de', 'aspell-en', 'gnutls-bin']
 
 def install():
     """Run all steps, which are necessary to install a fresh emacs
