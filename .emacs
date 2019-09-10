@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -57,7 +57,7 @@
 (setq my-package-list '(cmake-mode company company-jedi
 				   dictcc dash epc flyspell-popup
 				   helm helm-gtags helm-themes jedi
-				   markdown-mode s xclip))
+				   markdown-mode s yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
 ;; new packages must be installed.
