@@ -23,3 +23,9 @@
   (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
   (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
   (define-key helm-gtags-mode-map (kbd "C-M-o") 'helm-gtags-find-files))
+
+(defun gtags-init (path)
+  "Create gtags in the specified path.
+Runs the shell command: gtags --gtagslabel=new-ctags <path>"
+  (interactive "D")
+  (shell-command (concat "gtags --gtagslabel=new-ctags " path)))
