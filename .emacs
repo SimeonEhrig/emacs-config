@@ -54,9 +54,9 @@
 ;; =============================================================================
 
 ;; all packages, which have to installed via emacs package manager
-(setq my-package-list '(cmake-mode company company-jedi
+(setq my-package-list '(cmake-mode company company-irony company-jedi
 				   dictcc dash epc ggtags flyspell-popup
-				   helm helm-gtags helm-themes jedi
+				   helm helm-gtags helm-themes irony jedi
 				   markdown-mode projectile s yaml-mode
 				   xclip))
 
@@ -118,12 +118,15 @@
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(eval-after-load 'company
-   (progn
-     '(add-to-list 'company-backends
-		   'company-cmake
-		   )
-    ))
+;; register different company backends
+(let ((company-backends-to-enable
+       '(company-cmake
+	 ;; add new backend
+	 )))
+  (dolist (backend company-backends-to-enable)
+    (add-to-list 'company-backends backend))
+  (eval-after-load 'company 'company-backends)
+  )
 
 ;; library to managing projects, e.g a git repo is a project
 (require 'projectile)
