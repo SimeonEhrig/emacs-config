@@ -51,6 +51,7 @@ The `setup.py` script installs and updates the emacs configuration. It creates d
 
 ```list
 ;; set paths on which projectile search for projects
+(setq projectile-project-search-path '("~/projects/" "~/work/"))
 ```
 
 # Macros
