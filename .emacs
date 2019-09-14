@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,9 +55,10 @@
 
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-jedi
-				   dictcc dash epc flyspell-popup
+				   dictcc dash epc ggtags flyspell-popup
 				   helm helm-gtags helm-themes jedi
-				   markdown-mode s yaml-mode xclip))
+				   markdown-mode projectile s yaml-mode
+				   xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
 ;; new packages must be installed.
@@ -123,6 +124,16 @@
 		   'company-cmake
 		   )
     ))
+
+;; library to managing projects, e.g a git repo is a project
+(require 'projectile)
+(setq projectile-sort-order 'recentf)
+;; enable the ggtags mode in the c++ mode to use it together with projectile
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (ggtags-mode 1))))
+(setq projectile-tags-backend 'ggtags)
 
 ;; =============================================================================
 ;; =========================== configure main usage ============================
@@ -212,6 +223,10 @@
 
 ;; allow smart completion with <TAB>
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+
+;; set prefix key binding for every projectile command
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(projectile-mode +1)
 
 ;; =============================================================================
 ;; =================================== other ===================================

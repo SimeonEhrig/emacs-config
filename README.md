@@ -47,6 +47,12 @@ The `setup.py` script installs and updates the emacs configuration. It creates d
   * company is a universal auto complete system. It can be used for different languages like, plain text, C++, Python and so on
   * https://company-mode.github.io/
 
+# Useful system-dependent variables
+
+```list
+;; set paths on which projectile search for projects
+```
+
 # Macros
 Steps to describe creating a macro, saving and loading it
 
