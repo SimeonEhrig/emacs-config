@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,9 +56,9 @@
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-irony company-jedi
 				   dictcc dash epc ggtags flyspell-popup
-				   helm helm-gtags helm-themes irony jedi
-				   markdown-mode projectile s yaml-mode
-				   xclip))
+				   helm helm-gtags helm-projectile helm-themes
+				   irony jedi markdown-mode projectile s
+				   yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
 ;; new packages must be installed.
@@ -137,6 +137,10 @@
             (when (derived-mode-p 'c-mode 'c++-mode)
               (ggtags-mode 1))))
 (setq projectile-tags-backend 'ggtags)
+
+;; enable helm extension for projectile
+(require 'helm-projectile)
+(helm-projectile-on)
 
 ;; =============================================================================
 ;; =========================== configure main usage ============================
