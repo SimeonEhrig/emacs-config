@@ -17,3 +17,11 @@ It removes the company-irony entry from company-backends.
 (add-hook 'irony-mode-hook
 	  (lambda ()
 	    (add-to-list 'company-backends 'company-irony)))
+
+(defun irony-print-diagnostic ()
+  """Print the clang diagnostic of the last completion command in the message buffer.
+
+Attention, check that the irony-server is running before you run the command.
+"""
+  (interactive)
+  (message "%S" (irony--run-task (irony--diagnostics-task))))
