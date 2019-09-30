@@ -149,6 +149,9 @@
 ;; enable c++-mode at cuda cu.files
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 
+;; enable sh-mode at singularity .def recipe
+(add-to-list 'auto-mode-alist '("\\.def\\'" . sh-mode))
+
 ;; enable copy/paste between emacs and x11
 ;; to install use following command in emcas (RET means key enter): M-x package-install RET xclip RET
 (xclip-mode 1)
