@@ -2,6 +2,7 @@
 My personal emacs configuration
 
 # Get current emacs version
+## via apt
 **Source:** https://launchpad.net/%7Ekelleyk/+archive/ubuntu/emacs
 
 ```bash
@@ -9,6 +10,14 @@ sudo add-apt-repository ppa:kelleyk/emacs
 sudo apt-get update
 sudo update-alternatives --config emacs
 ```
+
+## via spack
+
+```bash
+spack install emacs +tls
+```
+
+Without gnutools, the libxml2 is missing and the dict.cc addon is not working.
 
 # Content of the Repository
 
