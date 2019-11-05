@@ -23,3 +23,20 @@
                                   (sphinx-doc-mode t)))
 ;; enable documentation templates for *args and  **kwarg
 (setq sphinx-doc-all-arguments t)
+
+;; allows the flycheck modes pycompile and mypy to work together
+;; http://wikemacs.org/wiki/Python#MyPy_checks
+(require 'flycheck)
+(flycheck-define-checker
+    python-mypy ""
+    :command ("mypy"
+              "--ignore-missing-imports"
+	      "--check-untyped-defs"
+              "--python-version" "3.7"
+              source-original)
+    :error-patterns
+    ((error line-start (file-name) ":" line ": error:" (message) line-end))
+    :modes python-mode)
+
+(add-to-list 'flycheck-checkers 'python-pycompile t)
+(flycheck-add-next-checker 'python-pycompile 'python-mypy t)

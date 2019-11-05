@@ -40,3 +40,28 @@ source $JEDI_ENV_PATH~/.emacs.d/.python-environments/jedi/bin/activate
 **Attention:** If you have loaded the environment, it is still possible that the `python`, `python3`, `pip` and `pip3` commands point to executables which are not part of the environment. Make sure you run the right tools. To be on safe side, simply run the `load-jedi-python.sh` script.
 
 To verify that the installation was correct, run `M+x run-python RET` in emacs and try to import the module.
+
+# Flycheck
+
+Flycheck is a framework that makes it possible to highlight warnings and errors in source code with external tools. Two external tools are configured for Jedi mode:
+
+* **pycompile:** General Python semantic errors
+* **mypy:** static type checking using [type hints](https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html) [link](http://mypy-lang.org/)
+
+## Install mypy
+
+```bash
+pip3 install mypy
+```
+
+## Configure Paths to the flycheck tools
+
+```lisp
+(custom-set-variables
+ ;; placeholder
+ '(flycheck-python-flake8-executable "/path/to/python3")
+ '(flycheck-python-pycompile-executable "/path/to/python3")
+  ;; placeholder
+ '(flycheck-python-pylint-executable "/path/to/python3")
+ '(flycheck-python-mypy-executable "/path/to/mypy"))
+```
