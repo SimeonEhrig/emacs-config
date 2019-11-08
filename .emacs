@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,7 +56,7 @@
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-irony company-jedi
 				   dictcc dash epc ggtags
-				   flycheck flycheck-mypy flyspell-popup
+				   flycheck flycheck-irony flycheck-mypy flyspell-popup
 				   helm helm-gtags helm-projectile helm-themes
 				   irony jedi magit markdown-mode projectile s
 				   yaml-mode xclip))

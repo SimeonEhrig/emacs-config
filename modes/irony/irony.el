@@ -25,3 +25,8 @@ Attention, check that the irony-server is running before you run the command.
 """
   (interactive)
   (message "%S" (irony--run-task (irony--diagnostics-task))))
+
+;; enable flycheck-irony
+(require 'flycheck)
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
