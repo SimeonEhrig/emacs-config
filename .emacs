@@ -131,6 +131,7 @@
 
 ;; library to managing projects, e.g a git repo is a project
 (require 'projectile)
+(setq projectile-indexing-method 'hybrid)
 (setq projectile-sort-order 'recentf)
 ;; enable the ggtags mode in the c++ mode to use it together with projectile
 (add-hook 'c-mode-common-hook
