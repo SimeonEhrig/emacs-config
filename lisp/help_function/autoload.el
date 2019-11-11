@@ -157,3 +157,12 @@ Thanks to Maximilian Böhme
       (append (list (car l) (car l) ) (double-element-in-list (cdr l)))
     '())
   )
+
+;; define function to shutdown emacs server instance
+;; source: https://www.emacswiki.org/emacs/EmacsAsDaemon
+(defun server-shutdown ()
+  "Save buffers, Quit, and Shutdown (kill) server"
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs)
+  )
