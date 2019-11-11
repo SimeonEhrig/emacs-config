@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,7 +58,7 @@
 				   dictcc dash epc ggtags
 				   flycheck flycheck-irony flycheck-mypy flyspell-popup
 				   helm helm-gtags helm-projectile helm-themes
-				   irony jedi magit markdown-mode projectile s
+				   irony jedi magit markdown-mode neotree projectile s
 				   yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
@@ -176,6 +176,9 @@
 
 (setq ediff-split-window-function 'split-window-horizontally)
 
+;; disable scroll bar in GUI mode
+(scroll-bar-mode -1)
+
 ;; =============================================================================
 ;; ============================ global key bindings ============================
 ;; =============================================================================
@@ -246,6 +249,8 @@
 
 ;; run magit status command
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(global-set-key (kbd "<f8>") 'neotree-toggle)
 
 ;; =============================================================================
 ;; =================================== other ===================================
