@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,7 +55,7 @@
 
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-irony company-jedi
-				   dictcc dash epc ggtags
+				   dictcc diff-hl dash epc ggtags
 				   flycheck flycheck-irony flycheck-mypy flyspell-popup
 				   helm helm-gtags helm-projectile helm-themes
 				   irony jedi magit markdown-mode neotree projectile s
@@ -148,6 +148,14 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+;; diff-hl is a plugin which show git diff inside the buffer
+;; highlight works just in GUI mode, navigation also in terminal
+(require 'diff-hl)
+(global-diff-hl-mode)
+;; use flycheck to update highlight without saving file
+(diff-hl-flydiff-mode)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
 ;; =============================================================================
 ;; =========================== configure main usage ============================
 ;; =============================================================================
@@ -178,6 +186,11 @@
 
 ;; disable scroll bar in GUI mode
 (scroll-bar-mode -1)
+
+;; allows to load every .dir-locals.el
+;; can be a secure problem
+;; by default, safe (system-dependent) variables are stored in the .emacs.
+(setq enable-local-variables :all)
 
 ;; =============================================================================
 ;; ============================ global key bindings ============================
