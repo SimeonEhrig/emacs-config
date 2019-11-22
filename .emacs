@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,7 +55,7 @@
 
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-irony company-jedi
-				   dictcc diff-hl dash epc ggtags
+				   dictcc diff-hl dash ein epc ggtags
 				   flycheck flycheck-irony flycheck-mypy flyspell-popup
 				   helm helm-gtags helm-projectile helm-themes
 				   irony jedi magit markdown-mode neotree projectile s
@@ -155,6 +155,10 @@
 ;; use flycheck to update highlight without saving file
 (diff-hl-flydiff-mode)
 (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+;; emacs ipython notebook (ein)
+;; the polymode allows to display markdown cells in notebooks
+(setq ein:polymode t)
 
 ;; =============================================================================
 ;; =========================== configure main usage ============================
