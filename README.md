@@ -14,7 +14,7 @@ sudo update-alternatives --config emacs
 ## via spack
 
 ```bash
-spack install emacs +tls
+spack install emacs +X +tls toolkit=athena
 ```
 
 Without gnutools, the libxml2 is missing and the dict.cc addon is not working.
@@ -77,7 +77,7 @@ Open a file, for example `~/.emacs.d/macros/gen.macs`. Go to the end and copy th
 You can simply load the macros from file with `load-file`. If you want to load a macro at start up, just add a line to the `.emacs` file. You can also use the `global-set-key` function to bind the macro to a key combination at startup.
 
 # Emacs Server
-The Emacs server makes it possible to run emacs independently of your login season. It is also possible to open a buffer with many (different) clients.
+The Emacs server makes it possible to run emacs independently of your login season. It is also possible to open a buffer with many (different) clients. To avoid an error that terminates the server when an ssh connection with X forwarding is closed, install emacs using the x toolkit `athena` or `lucid`.
 
 The following commands allow you to start and connect to an emacs server:
 
@@ -85,11 +85,11 @@ The following commands allow you to start and connect to an emacs server:
 export EMACS_SERVER_NAME=server-name
 # start emacs server
 # to stop the server, run server-shutdown inside an emacs-client
-alias emacs-server-start="emacs --bg-daemon=$EMACS-SERVER-NAME $@"
+alias emacs-server-start="emacs --bg-daemon=$EMACS_SERVER_NAME $@"
 # emacs terminal client
-alias emc="emacsclient -nw -s $EMACS-SERVER-NAME -c $@"
+alias emc="emacsclient -nw -s $EMACS_SERVER_NAME -c $@"
 # emacs GUI client (X11)
-alias emgc="emacsclient -s $EMACS-SERVER-NAME -c $@ &"
+alias emgc="emacsclient -s $EMACS_SERVER_NAME -c $@ &"
 ```
 
 With the command `M-x server-shutdown` you can stop the emacs server from an emacs client.
