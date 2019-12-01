@@ -1,7 +1,7 @@
 
-# company-irony
+# Company-irony
 
-## irony-install-server with non default libclang.so
+## Irony-install-server with non default libclang.so
 
 If you want to use the irony-server with a clang installation which is not always available, follow these steps. For example, if you are using a module environment system, this is the case. In this case, you have to use an [RPATH](https://en.wikipedia.org/wiki/Rpath) for the linking the executable.
 
@@ -17,7 +17,7 @@ If you want to rebuild the server e.g. for testing or updates, you can permanent
 (setq irony-extra-cmake-args '("-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON" "-DCMAKE_INSTALL_RPATH=/path/to/libclang.so"))
 ```
 
-## disable the company-irony backend
+## Disable the company-irony backend
 
 Sometimes the `company-irony` backend has some problems with the completion. In this case, it might be helpful to use the `company-clang` backend. To use the `company-clang` backend, simply run the emacs function `disable-company-irony`. You can check if it works by running emacs command `company-diag` after executing a completion command.
 
@@ -80,12 +80,88 @@ Default paths of the headers are:
 
 [1] `irony-print-diagnostic` is not part of the Irony package. It is defined in the `irony.el` of this folder.
 
-# company-clang
+# Company-clang
 
-## useful variables
+## Useful variables
 
 Path to the clang executable
 
 ```lisp
 (setq company-clang-executable "/path/to/clang")
+```
+
+# Rtags
+
+[Rtags](https://github.com/Andersbakken/rtags) is a client-server implementation of the Clang toolkit. The server (rdm) uses the Clang toolkit to parse C++ files and generate an AST and index. The client (rc) is responsible for obtaining various information about the parsed project. Rtags is designed as an editor independent tool. So the server (rdm) and the client (rc) are standalone applications and the emacs functions call the client application with different parameters.
+
+## Install
+
+Since the server and client are standalone applications, it is necessary to compile them after installing the rtags emacs package.
+
+```lisp
+;; run the following command in scratch after you have activated the rtags mode
+;; -DLIBCLANG_LLVM_CONFIG_EXECUTABLE is only necessary if you have not installed the clang toolchain in the default path
+(rtags-install nil "-DRTAGS_NO_ELISP_FILES=1 -DLIBCLANG_LLVM_CONFIG_EXECUTABLE=/path/to/llvm-config")
+```
+
+After compiling and installing, it make sense to add the `bin` folder path to your `PATH` variable, as there is no emacs function to initialize a project index. The usual path is `.emacs.d/elpa/rtags-<hash>/rtags-<version>/bin`.
+
+### General hints
+
+With `rc --help` you get all options to control the server. The `rc -g` command prints the server log to the terminal.
+
+## Setup project
+
+The most difficult part is to set up a project initialization. When a project is running, rtags takes care of updates automatically.
+
+There are two requirements for using rtags in a project (read all points first to avoid additional work):
+1. You need a build of the project
+    - Clang must be able to compile the project
+    - Often the build of the project can be done with `gcc` because many arguments are compatible
+2. The build needs a `compile_commands.json`.
+    -  How to get it is explained in [`1. Get a compile_commands.json`](https://github.com/SimeonEhrig/emacs-config/tree/master/modes/irony#1-get-a-compile_commandsjson) section of the irony section in this README file.
+
+When the build is complete, you must index a project. Indexing is done using the Bash tool. Make sure that the server is running, otherwise you will get an error message. There are two ways to start the server. The first is directly through the bash command `rdm`. The second is via the emacs function `rtags-start-process-unless-running`. How they start the server doesn't matter. Each time the server is running, the same data is used and it is available on the same socket. So you can also mix the startup methods and it will still work in emacs.
+
+To index a project, run the command:
+
+```bash
+# initialize project
+rc -J /path/to/compile_commands.json
+```
+
+The process runs asynchronous and take a little bit time depending on the project. If your project is very large, it make sense to display the server log via `rc -g` on a second terminal. Indexing is complete when there is a message like `Jobs took 0.23s. We're using 40mb of memory.` is displayed.
+
+To check the success of indexing, run `rtags-find-symbol-at-point` (M-.) on a word in your source code. Especially function definition and implementation in different files (`.h` and `.cpp`) are a really good test case. If you switch between the files, everything is fine, otherwise see next section.
+
+### Solving indexing problems
+
+To solve the indexing problem, do the following workflow:
+
+1. Open an affected source code file
+2. Run the command `rtags-diagnostics` to open the diagnostic buffer. The buffer displays all clang compiler errors.
+3. Run the command `rtags-reparse-file` to reparse the file.
+4. Read the clang errors in the diagnostic buffer.
+5. Solve the problem [1]
+
+[1] This point is work in progress and will be extended as new problems are found and solved. See next section.
+
+#### Solutions for various problems
+
+**Missing headers:** If header files are missing, e.g. the std lib, you can add an include path when you start rdm. Depending on how do you start the server, you may need to use the following code snippets.
+
+```bash
+rdm -I/path/to/header -I/another/path
+```
+
+```lisp
+(setq rtags-rdm-includes '("/path/to/header -I/another/path"))
+```
+
+Then, reparse the file.
+
+
+**Sets start arguments for rdm:**
+```lisp
+(setq rtags-process-flags "-I/path/to/header")
 ```

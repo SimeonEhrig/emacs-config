@@ -5,12 +5,10 @@
 (require 'helm-gtags)
 
 ;; Enable helm-gtags-mode
-(add-hook 'c-mode-hook 'helm-gtags-mode)
-(add-hook 'c++-mode-hook 'helm-gtags-mode)
-(add-hook 'asm-mode-hook 'helm-gtags-mode)
 (setq helm-gtags-path-style 'relative)
 (setq helm-gtags-ignore-case t)
-(setq helm-gtags-auto-update t)
+;; FIXME: most of the ggtags process doesn't terminate
+;;(setq helm-gtags-auto-update t)
 
 ;; helm-gtags local key bindings
 (with-eval-after-load 'helm-gtags

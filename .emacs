@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,9 +56,10 @@
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(cmake-mode company company-irony company-jedi
 				   dictcc diff-hl dash ein epc ggtags
-				   flycheck flycheck-irony flycheck-mypy flyspell-popup
-				   helm helm-gtags helm-projectile helm-themes
-				   irony jedi magit markdown-mode neotree projectile s
+				   flycheck flycheck-irony flycheck-mypy flycheck-rtags
+				   flyspell-popup
+				   helm helm-gtags helm-rtags helm-projectile helm-themes
+				   irony jedi magit markdown-mode neotree projectile rtags s
 				   yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
@@ -133,12 +134,6 @@
 (require 'projectile)
 (setq projectile-indexing-method 'hybrid)
 (setq projectile-sort-order 'recentf)
-;; enable the ggtags mode in the c++ mode to use it together with projectile
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode)
-              (ggtags-mode 1))))
-(setq projectile-tags-backend 'ggtags)
 
 ;; enable helm extension for projectile
 (require 'helm-projectile)
