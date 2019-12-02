@@ -166,3 +166,32 @@ Thanks to Maximilian Böhme
   (save-some-buffers)
   (kill-emacs)
   )
+
+;; =============================================================================
+;; ====================== save and restore frame layouts =======================
+;; =============================================================================
+;; really useful in combination with emacs server
+;; https://erick.navarro.io/blog/save-and-restore-window-configuration-in-emacs/
+
+(defvar window-snapshots '())
+
+(defun save-window-snapshot ()
+  "Save the current window configuration into `window-snapshots` alist."
+  (interactive)
+  (let ((key (read-string "Enter a name for the snapshot: ")))
+    (setf (alist-get key window-snapshots) (current-window-configuration))
+    (message "%s window snapshot saved!" key)))
+
+(defun get-window-snapshot (key)
+  "Given a KEY return the saved value in `window-snapshots` alist."
+  (let ((value (assoc key window-snapshots)))
+    (cdr value)))
+
+(defun restore-window-snapshot ()
+  "Restore a window snapshot from the window-snapshots alist."
+  (interactive)
+  (let* ((snapshot-name (completing-read "Choose snapshot: " (mapcar #'car window-snapshots)))
+	 (snapshot (get-window-snapshot snapshot-name)))
+    (if snapshot
+	(set-window-configuration snapshot)
+      (message "Snapshot %s not found" snapshot-name))))
