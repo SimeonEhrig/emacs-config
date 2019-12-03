@@ -5,7 +5,7 @@
 
 If you want to use the irony-server with a clang installation which is not always available, follow these steps. For example, if you are using a module environment system, this is the case. In this case, you have to use an [RPATH](https://en.wikipedia.org/wiki/Rpath) for the linking the executable.
 
-First you need to add the llvm `/lib` folder to the `LD_LIBRARY_PATH` environment variable and the `/bin` folder to the `PATH` environment variable. You will also need to add the llvm CMake configuration file to the search path. After switching to irony mode in emacs, run `M-x irony-install-server`. You will get a line of CMake arguments. Add the following arguments to the existing CMake arguments: 
+First you need to add the llvm `/lib` folder to the `LD_LIBRARY_PATH` environment variable and the `/bin` folder to the `PATH` environment variable. You will also need to add the llvm CMake configuration file to the search path. After switching to irony mode in emacs, run `M-x irony-install-server`. You will get a line of CMake arguments. Add the following arguments to the existing CMake arguments:
 
 ```
 -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON -DCMAKE_INSTALL_RPATH=/path/to/libclang.so
@@ -79,6 +79,16 @@ Default paths of the headers are:
 * **llvm** : llvm/include/c++/v1/
 
 [1] `irony-print-diagnostic` is not part of the Irony package. It is defined in the `irony.el` of this folder.
+
+## company-irony-c-headers
+
+Company-irony-c-headers allows auto completion for header includes.
+
+```lisp
+(setq company-irony-c-headers--compiler-executable "/path/to/clang++")
+```
+
+View the header with `C-w` in another buffer when opening the completion suggestions.
 
 # Company-clang
 

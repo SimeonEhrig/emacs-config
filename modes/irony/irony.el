@@ -113,7 +113,7 @@ Attention, check that the irony-server is running before you run the command.
 ;; enable the company-irony by default
 (add-hook 'irony-mode-hook
 	  (lambda ()
-	    (add-to-list 'company-backends 'company-irony)))
+	    (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
 
 ;; =============================================================================
 ;; ============================== flycheck setup ===============================
