@@ -136,3 +136,34 @@ Attention, check that the irony-server is running before you run the command.
 (require 'flycheck)
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+;; cuda mode
+
+(defvar cuda-include-path "/usr/local/cuda/include")
+
+;;(add-hook 'find-file-hook 'my-cuda-hook)
+(defun my-cuda-hook ()
+  (when (string= (file-name-extension buffer-file-name) "cu")
+    (progn
+      (setq irony-additional-clang-options
+	    (append
+	     (list "--cuda-path=/media/storage/spack-modules/linux-ubuntu16.04-x86_64/gcc-5.4.0/cuda-10.0.130-2ncant54wqot3prhetq4yyqybnynppi4/")
+	     irony-additional-clang-options
+	     )
+	    )
+      (setq irony-additional-clang-options
+	    (append
+	     (list "--cuda-host-only" "-x" "cuda"
+		   "-Xclang" "-resource-dir" "-Xclang" "/media/storage/spack-modules/linux-ubuntu16.04-x86_64/gcc-5.4.0/llvm-8.0.0-t543zxcdkngccm2raltievv5vuzuodg5/lib/clang/8.0.0"
+		   "-Xclang" "-internal-isystem" "-Xclang" "/media/storage/spack-modules/linux-ubuntu16.04-x86_64/gcc-5.4.0/llvm-8.0.0-t543zxcdkngccm2raltievv5vuzuodg5/lib/clang/8.0.0/include/cuda_wrappers"
+		   "-Xclang" "-internal-isystem" "-Xclang" "/media/storage/spack-modules/linux-ubuntu16.04-x86_64/gcc-5.4.0/cuda-8.0.61-c6favafl4ajhs334zlhykli7rnwsof7r/include"
+		   "-Xclang" "-include" "-Xclang" "__clang_cuda_runtime_wrapper.h"
+		   "-I" "/opt/spack-modules/linux-ubuntu16.04-x86_64/gcc-5.4.0/cuda-8.0.61-c6favafl4ajhs334zlhykli7rnwsof7r/include"
+		   "-I" "/opt/spack-modules/linux-ubuntu16.04-x86_64/gcc-5.4.0/llvm-8.0.0-t543zxcdkngccm2raltievv5vuzuodg5/include"
+		   )
+	     irony-additional-clang-options
+	     )
+	    );; setq
+      );; progn
+    );; when
+  );; defun
