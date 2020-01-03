@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -47,20 +47,21 @@
  '(ediff-odd-diff-A ((t (:background "blue"))))
  '(ediff-odd-diff-Ancestor ((t (:background "blue"))))
  '(ediff-odd-diff-B ((t (:background "blue"))))
- '(ediff-odd-diff-C ((t (:background "blue")))))
+ '(ediff-odd-diff-C ((t (:background "blue"))))
+ '(term-color-blue ((t (:background "deep sky blue" :foreground "deep sky blue")))))
 
 ;; =============================================================================
 ;; =================== install packages via package manager ====================
 ;; =============================================================================
 
 ;; all packages, which have to installed via emacs package manager
-(setq my-package-list '(cmake-mode company company-irony company-irony-c-headers company-jedi
-				   dictcc diff-hl dash ein epc ggtags
-				   flycheck flycheck-irony flycheck-mypy flycheck-rtags
-				   flyspell-popup
-				   helm helm-gtags helm-rtags helm-projectile helm-themes
-				   irony jedi magit markdown-mode multi-term neotree projectile
-				   rtags s yaml-mode xclip))
+(setq my-package-list '(clang-format cmake-mode company company-irony company-irony-c-headers company-jedi
+				     dictcc diff-hl dash ein epc ggtags
+				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
+				     flyspell-popup
+				     helm helm-gtags helm-rtags helm-projectile helm-themes
+				     irony jedi magit markdown-mode multi-term neotree projectile
+				     rtags s yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
 ;; new packages must be installed.
