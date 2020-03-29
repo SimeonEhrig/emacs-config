@@ -156,6 +156,8 @@
 ;; the polymode allows to display markdown cells in notebooks
 (setq ein:polymode t)
 
+(add-hook 'rst-mode-hook 'sphinx-build-mode)
+
 ;; =============================================================================
 ;; =========================== configure main usage ============================
 ;; =============================================================================
