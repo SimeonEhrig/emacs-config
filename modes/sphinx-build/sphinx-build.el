@@ -54,6 +54,14 @@
   (setq sphinx-makefile-path (read-directory-name "Path to the Sphinx Makefile:"))
 )
 
+(defun sphinx-choose-webbrowser (choice)
+  "Set the web browser."
+  (interactive
+   (list (completing-read "Choose: "
+                          '(("Mozilla Firefox" . "Mozilla Firefox") ("Chromium" . "Chromium")) nil t)))
+  (setq sphinx-webbrowser choice)
+  choice)
+
 (defun sphinx-build ()
   "Run `make html`."
   (interactive)
