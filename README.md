@@ -39,6 +39,10 @@ Contains various packages or compilations of packages that are not part of the s
 
 The `setup.py` script installs and updates the emacs configuration. It creates different folders and creates different links. It is an interactive script that asks which mode to install. The script create the file `modes.json`. It saves your decisions about the modes.
 
+## dir-locals-example
+
+Examples for `.dir-locals.el` for different workflows.
+
 # Where can I find what
 
 * **keybindings:** In the .emcas file in the section *global key bindings* or in the *.el files in the `modes/*` folder.
@@ -95,4 +99,3 @@ alias emgc="emacsclient -s $EMACS_SERVER_NAME -c $@ &"
 With the command `M-x server-shutdown` you can stop the emacs server from an emacs client.
 
 **Hint:** You can connect an emacs server with terminal and GUI client (simultaneously). It is very helpful if you work from different locations on a remote system.
-

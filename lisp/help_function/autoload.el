@@ -195,3 +195,40 @@ Thanks to Maximilian Böhme
     (if snapshot
 	(set-window-configuration snapshot)
       (message "Snapshot %s not found" snapshot-name))))
+
+;; =============================================================================
+;; ====================== refresh web-browser from emcas =======================
+;; =============================================================================
+
+(setq rfwb-webbrowser "Mozilla Firefox")
+
+(defun rfwb-choose-webbrowser (choice)
+  "Set the web browser."
+  (interactive
+   (list (completing-read "Choose: "
+                          '(("Mozilla Firefox" . "Mozilla Firefox") ("Chromium" . "Chromium")) nil t)))
+  (setq rfwb-webbrowser choice)
+  choice)
+
+(defun rfwb-get-webbrowser-search-string ()
+  "Return a xdotool search string depending on the web browser."
+  (if (string= rfwb-webbrowser "Mozilla Firefox")
+      (concat "WID=$(xdotool search --name \"Mozilla Firefox\")")
+    (if (string= rfwb-webbrowser "Chromium")
+	(concat "WID=$(xdotool search --onlyvisible --class \"chromium\")")
+      (concat "")
+      )
+    )
+  )
+
+; add while loop with sleep and abort counter
+(defun rfwb-webbrowser-refresh ()
+  "Run refresh on the current site in the web browser."
+  (interactive)
+  (shell-command (concat
+		  "CURRENT_WID=$(xdotool getwindowfocus) && "
+		  (rfwb-get-webbrowser-search-string) " && "
+		  "xdotool windowactivate $WID && "
+		  "xdotool key F5 && "
+		  "xdotool windowactivate $CURRENT_WID")
+		 nil nil))
