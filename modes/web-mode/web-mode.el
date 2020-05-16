@@ -13,6 +13,9 @@
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
+;; automatic closing of tags
+(setq web-mode-auto-close-style 1)
+
 ;; =============================================================================
 ;; ========================== web-mode-company config ==========================
 ;; =============================================================================
@@ -34,3 +37,4 @@
 
 (require 'impatient-mode)
 (add-hook 'web-mode-hook 'impatient-mode)
+(add-hook 'web-mode-hook 'css-mode)
