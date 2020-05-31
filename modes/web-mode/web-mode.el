@@ -13,8 +13,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 
-;; automatic closing of tags
-(setq web-mode-auto-close-style 1)
+;; mode 2: Auto-close on > and </
+(setq web-mode-auto-close-style 2)
 
 ;; =============================================================================
 ;; ========================== web-mode-company config ==========================
