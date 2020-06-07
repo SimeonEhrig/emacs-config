@@ -16,3 +16,11 @@ This mode allows to just-in-time render web code, like HTML in the web-browser. 
 1. open a HTML file
 2. run `M-x httpd-start`
 3. open `http://localhost:8080/imp` in your web browser and click on the link to the file
+
+# tidy-html5
+
+`tidy-html5` checks html files for errors. It is required for flycheck in `web-mode`.
+
+```bash
+sudo apt install tidy
+```

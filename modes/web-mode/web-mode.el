@@ -15,6 +15,8 @@
 
 ;; mode 2: Auto-close on > and </
 (setq web-mode-auto-close-style 2)
+;; highlight open and related close tag for element on current cursor position
+(setq web-mode-enable-current-element-highlight t)
 
 ;; =============================================================================
 ;; ========================== web-mode-company config ==========================
@@ -31,10 +33,13 @@
 	    (add-to-list (make-local-variable 'company-backends) '(company-web-html))
 	    (company-mode t)))
 
+;; enable flycheck and add html-tidy
+(eval-after-load 'flycheck '(flycheck-add-mode 'html-tidy 'web-mode))
+
 ;; =============================================================================
 ;; =========================== impatient-mode config ===========================
 ;; =============================================================================
 
 (require 'impatient-mode)
 (add-hook 'web-mode-hook 'impatient-mode)
-(add-hook 'web-mode-hook 'css-mode)
+(add-hook 'css-mode-hook 'impatient-mode)
