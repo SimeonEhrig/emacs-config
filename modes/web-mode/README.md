@@ -24,3 +24,15 @@ This mode allows to just-in-time render web code, like HTML in the web-browser. 
 ```bash
 sudo apt install tidy
 ```
+
+# scss
+
+## install
+
+```bash
+conda install -c conda-forge rb-sass
+```
+
+## configure
+
+Use the variable `scss-exe` to set the path to the `scss` executable.

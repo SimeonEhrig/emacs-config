@@ -43,3 +43,42 @@
 (require 'impatient-mode)
 (add-hook 'web-mode-hook 'impatient-mode)
 (add-hook 'css-mode-hook 'impatient-mode)
+
+;; =============================================================================
+;; ================================ scss config ================================
+;; =============================================================================
+
+;; use company-css backend because there is not company-scss backend
+(add-hook 'scss-mode-hook
+	  (lambda ()
+	    (add-to-list (make-local-variable 'company-backends) '(company-css))
+	    (company-mode t)))
+
+;; The impatient mode has a list of watched files for every file, which was opened
+;; in the webbrowser. If some of the files was modified, the webbrowser do a
+;; refresh. By default, the impatient mode extract the information from the file
+;; which was opened in the webbrowser. For scss files it doesn't work because,
+;; they are not direct included in html files.
+(defun imp-add-to-related-files (path)
+  "Add file to imp-related-files of the current buffer."
+  (interactive "sPath: ")
+  (add-to-list 'imp-related-files path))
+
+;; Add a refresh command to the save hook.
+;; scss has a compiler step. So the css is just changing, when the scss file is
+;; saved. The impatient mode just refresh, if the current buffer is modified.
+;; Without the hook, you have to save the file and insert a new char in the
+;; buffer, before the webbrowser refresh.
+(defun impatient-update-scss ()
+  (when (eq major-mode 'scss-mode)
+    (sleep-for 0.5)
+    (imp--on-change)))
+(add-hook 'after-save-hook #'impatient-update-scss)
+
+(defvar scss-exe "scss")
+
+(defun run-scss-watch (input output)
+  "Run a scss watchdog process."
+  (interactive "DInput: \nDOutput: ")
+  (start-process "scss" "scss" scss-exe "--watch" (concat input ":" output))
+  )
