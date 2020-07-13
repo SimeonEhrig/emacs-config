@@ -136,3 +136,73 @@ Attention, check that the irony-server is running before you run the command.
 (require 'flycheck)
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+;; =============================================================================
+;; ========================= projectile cmake extras ===========================
+;; =============================================================================
+;; some helper functions for projectile project configuration files for cmake
+
+(setq cm-build-dir "build")
+(setq cm-install-dir "install")
+(setq cm-build-type "RELEASE")
+;; %s is replaced by the build directory path
+(setq cm-configure-cmd "cmake %s")
+(setq cm-run-cmd "")
+;; if conda environment is set, configure, compile and run command are prefixed
+;; with conda run -n <env_name> <command>
+(setq cm-conda-env "")
+;; if conda environment is set, configure, compile and run command are prefixed
+;; with singularity exec <cm-singularity-env-args> <image.sif> <command>
+(setq cm-singularity-env "")
+(setq cm-singularity-env-args "")
+
+(defun cm-print-build-type ()
+  "Print the CMAKE_BUILD_TYPE."
+  (interactive)
+  (message "CMake Build type: %S" cm-build-type)
+  )
+
+(defun cm-get-env-run-cmd (input-cmd)
+  "Set a prefix command at INPUT-CMD, if conda or singularity environment is set."
+  (setq prefix "")
+  (if (not (string= "" cm-conda-env))
+      (setq prefix (concat conda-env-home-directory "bin/conda run -n " cm-conda-env " "))
+    )
+  (if (not (string= "" cm-singularity-env))
+      (setq prefix (concat "singularity exec " cm-singularity-env-args " " cm-singularity-env " "))
+    )
+  (concat prefix input-cmd)
+  )
+
+(defun cm-set-projectile-project-type ()
+  "Run projectile-register-project-type with cm-* variables."
+  (projectile-register-project-type 'cmake '("CMakeLists.txt")
+				    :compilation-dir (concat cm-build-dir "_" (downcase cm-build-type))
+				    :configure (cm-get-env-run-cmd
+						(concat
+						 cm-configure-cmd
+						 " -DCMAKE_BUILD_TYPE="
+						 cm-build-type
+						 " -DCMAKE_INSTALL_PREFIX="
+						 (concat cm-install-dir "_" (downcase cm-build-type))
+						 ))
+				    :compile (cm-get-env-run-cmd "cmake --build .")
+				    :run (cm-get-env-run-cmd cm-run-cmd)
+				    :test "ctest")
+  )
+
+(defun cm-switch ()
+  "Switch between DEBUG and RELEASE BUILD_TYPE."
+  (interactive)
+  (progn
+    (if (string= "RELEASE" cm-build-type)
+	(progn
+	  (setq cm-build-type "DEBUG")
+	  (message "Set CMake Build type to: DEBUG"))
+      (progn
+	(setq cm-build-type "RELEASE")
+	(message "Set CMake Build type to: RELEASE"))
+      )
+    (cm-set-projectile-project-type)
+    )
+  )

@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,7 +56,7 @@
 
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(blacken clang-format cmake-mode company company-irony company-irony-c-headers
-				     company-jedi company-web dictcc diff-hl dash ein epc ggtags
+				     company-jedi company-web conda dictcc diff-hl dash ein epc ggtags
 				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
 				     flyspell-popup helm helm-gtags helm-rtags helm-projectile
 				     helm-themes impatient-mode irony jedi magit markdown-mode
@@ -157,6 +157,8 @@
 (setq ein:polymode t)
 
 (add-hook 'rst-mode-hook 'sphinx-build-mode)
+
+(require 'conda)
 
 ;; =============================================================================
 ;; =========================== configure main usage ============================
