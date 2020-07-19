@@ -164,10 +164,19 @@ class Modes_Config_Handler:
             # create lisp setq command and replace <env_root> placeholder
             if "vars" in package:
                 for v in package["vars"]:
-                    lisp.append(
-                        '(setq {0} "{1}")\n'.format(
-                            v, package["vars"][v].replace("<env_root>", conda_env_root)
-                        )
+                    if isinstance(package["vars"][v], list):
+                        # create a lisp list
+                        s = "(setq {0} '(".format(v)
+                        for e in package["vars"][v]:
+                            s += '"{0}" '.format(e.replace("<env_root>", conda_env_root))
+                        s = s.rstrip()
+                        s += "))"
+                        lisp.append(s)
+                    else:
+                        lisp.append(
+                            '(setq {0} "{1}")\n'.format(
+                                v, package["vars"][v].replace("<env_root>", conda_env_root)
+                            )
                     )
             # add raw lisp code
             if "lisp" in package:

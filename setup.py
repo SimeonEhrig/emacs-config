@@ -32,7 +32,11 @@ optinal_progs = {
         "comment": "Without xdotool, the sphinx-mode cannot refresh the web browser."
     },
     "aspell-de": {"comment": "The German dictionary is not available at flycheck."},
-    "aspell-en": {"comment": "The English dictionary is not available at flycheck."},
+    "aspell-en": {
+        "comment": "The English dictionary is not available at flycheck.",
+        "lisp-true": "(setq flyspell-enable 1)",
+        "lisp-false": "(setq flyspell-enable 0)",
+    },
     "gnutls-bin": {
         "comment": "Required for the https connection to the packet servers."
     },
@@ -143,6 +147,11 @@ class Emacs_Setup:
         f_run_melpa = open(emacsd_path + "/run_melpa.el", "w")
         f_run_melpa.write("(setq run-melpa t)\n")
         f_run_melpa.close()
+
+        self.setup_generated_el.append(";; setup conda path for conda.el")
+        self.setup_generated_el.append(
+            '(setq conda-anaconda-home "{0}")\n'.format(self.conda_handler.conda_path)
+        )
 
         # search after modes in folder modes and ask for installation
         with open(emacs_config_path + "/modes.json", "r+") as f_json:

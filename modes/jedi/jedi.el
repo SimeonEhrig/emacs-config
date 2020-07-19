@@ -1,18 +1,28 @@
 ;; jedi is a python mode (https://github.com/tkf/emacs-jedi)
 ;; it improves developing python in emacs
 (add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:environment-root "jedi")  ; jedi is the name of the environment
-;; company completion on jedi (https://github.com/syohex/emacs-company-jedi)
-(defun my/python-mode-hook ()
-  (add-to-list 'company-backends 'company-jedi))
-(add-hook 'python-mode-hook 'my/python-mode-hook)
 
-;; run interactive python interpreter on script
-;; 1. M-x run-python
-;; C-c C-z
-(setq python-shell-interpreter
-      (expand-file-name
-       (concat (getenv "HOME") "/.emacs.d/.python-environments/jedi/bin/python3")))
+(add-hook
+ 'jedi-mode-hook
+ (lambda()
+   ;; show completion hints
+   (define-key jedi-mode-map (kbd "M-#") (function jedi:complete))
+   ;; accept a completion
+   (define-key ac-complete-mode-map (kbd "M-#") 'ac-expand)
+   )
+ )
+
+;; the function sets the Python environment of the Jedi auto-completion
+;; there is a order which environment is used if the environment before is not set
+;; 1. the environment which is set by the environment variable VIRTUAL_ENV
+;; 2. the environment which is set ny the Emacs lisp variable my-python-default-env
+;; 3. the environments in which the Jedi server is installed
+(defun my/default_python_env ()
+  (if (and (not (getenv "VIRTUAL_ENV")) (boundp 'my-python-default-env))
+    (set (make-local-variable 'jedi:server-args) (list "--virtual-env" my-python-default-env))
+    )
+  )
+(add-hook 'python-mode-hook 'my/default_python_env)
 
 ;; sphinx-doc generate documentation templates in python
 ;; source (fork): https://github.com/zasma/sphinx-doc.el

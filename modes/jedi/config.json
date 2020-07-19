@@ -1,0 +1,28 @@
+{
+    "python" : {
+	"comment" : "Configuration of the Emacs built-in Python mode",
+	"vars" : {"python-shell-interpreter" : "<env_root>/bin/python"}
+    },
+    "jedi" : {
+	"comment" : "Jedi is a tool for autocompletion in Python",
+	"conda" : ["-c anaconda virtualenv",
+		   "-c conda-forge jedi sexpdata epc"],
+	"vars" :  {"jedi:environment-root" : "<env_root>",
+		   "jedi:environment-virtualenv" : ["<env_root>/bin/virtualenv"]}
+    },
+    "flycheck-pycompile" : {
+	"comment" : "Use the Python interpreter to find errors in the Script.",
+	"vars" : {"flycheck-python-pycompile-executable" : "<env_root>/bin/python3" }
+    },
+    "flycheck-mypy" : {
+	"comment" : "mypy is a python checker, which supports type hinting",
+	"conda" : ["-c anaconda mypy"],
+	"vars" : {"flycheck-python-mypy-executable" : "<env_root>/bin/mypy"}
+    },
+    "black" : {
+	"comment" : "Black is a tool to format python code.",
+	"conda" : ["-c conda-forge black"],
+	"lisp" : [],
+	"vars" :  {"blacken-executable" : "<env_root>/bin/black"}
+    }
+}

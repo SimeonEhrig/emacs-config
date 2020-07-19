@@ -56,7 +56,7 @@
 
 ;; all packages, which have to installed via emacs package manager
 (setq my-package-list '(blacken clang-format cmake-mode company company-irony company-irony-c-headers
-				     company-jedi company-web conda dictcc diff-hl dash ein epc ggtags
+				     company-web conda dictcc diff-hl dash ein epc ggtags
 				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
 				     flyspell-popup helm helm-gtags helm-rtags helm-projectile
 				     helm-themes impatient-mode irony jedi magit markdown-mode
@@ -186,13 +186,16 @@
 ;; show cursor position within line
 (column-number-mode 1)
 
-;; enable on the fly spellcheck
-;; spellcheck for the complete text
-(add-hook 'text-mode-hook 'flyspell-mode)
-;;  spellcheck just for comments and strings (depends on the prog language)
-(add-hook 'prog-mode-hook 'flyspell-prog-mode)
-;; when this mode is enabled, the spellchecker pop menu opens if the cursor stays on the wrong word for more than one second
-(add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
+(if (= flyspell-enable 1)
+    (
+     ;; enable on the fly spellcheck
+     ;; spellcheck for the complete text
+     (add-hook 'text-mode-hook 'flyspell-mode)
+     ;;  spellcheck just for comments and strings (depends on the prog language)
+     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+     ;; when this mode is enabled, the spellchecker pop menu opens if the cursor stays on the wrong word for more than one second
+     (add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
+     ))
 
 (setq ediff-split-window-function 'split-window-horizontally)
 
