@@ -187,7 +187,7 @@
 (column-number-mode 1)
 
 (if (= flyspell-enable 1)
-    (
+    (progn
      ;; enable on the fly spellcheck
      ;; spellcheck for the complete text
      (add-hook 'text-mode-hook 'flyspell-mode)

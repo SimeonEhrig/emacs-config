@@ -177,7 +177,7 @@ class Emacs_Setup:
         for prog in optinal_progs:
             # use apt check, if package is installed
             check_process = subprocess.Popen(
-                ["apt", "-qq", "list", prog],
+                ["apt", "list", "-qq", prog],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
