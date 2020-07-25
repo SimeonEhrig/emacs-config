@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -59,7 +59,8 @@
 				     company-web conda dictcc diff-hl dash ein epc ggtags
 				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
 				     flyspell-popup helm helm-gtags helm-rtags helm-projectile
-				     helm-themes impatient-mode irony jedi magit markdown-mode
+				     helm-themes highlight-indent-guides
+				     impatient-mode irony jedi magit markdown-mode
 				     multi-term neotree projectile
 				     rtags s web-mode yaml-mode xclip))
 
@@ -162,6 +163,16 @@
 
 (require 'conda)
 
+;; add indentation highlighting in buffers
+(require 'highlight-indent-guides)
+;; configure style
+(set-face-background 'highlight-indent-guides-odd-face "darkgray")
+(set-face-background 'highlight-indent-guides-even-face "dimgray")
+(set-face-foreground 'highlight-indent-guides-character-face "dimgray")
+(setq highlight-indent-guides-method 'character)
+;; setup modes with indentation highlighting
+(add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
+(add-hook 'python-mode-hook 'highlight-indent-guides-mode)
 ;; =============================================================================
 ;; =========================== configure main usage ============================
 ;; =============================================================================

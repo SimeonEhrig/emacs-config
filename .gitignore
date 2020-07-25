@@ -1,2 +1,5 @@
 # save configuration of the local installation
 modes.json
+
+# tempoary files of the python checker
+__pycache__
