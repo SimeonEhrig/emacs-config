@@ -143,7 +143,6 @@ Attention, check that the irony-server is running before you run the command.
 ;; some helper functions for projectile project configuration files for cmake
 
 (setq cm-build-dir "build")
-(setq cm-install-dir "install")
 (setq cm-build-type "RELEASE")
 ;; %s is replaced by the build directory path
 (setq cm-configure-cmd "cmake %s")
@@ -166,7 +165,7 @@ Attention, check that the irony-server is running before you run the command.
   "Set a prefix command at INPUT-CMD, if conda or singularity environment is set."
   (setq prefix "")
   (if (not (string= "" cm-conda-env))
-      (setq prefix (concat conda-env-home-directory "bin/conda run -n " cm-conda-env " "))
+      (setq prefix (concat conda-env-home-directory "/condabin/conda run -n " cm-conda-env " "))
     )
   (if (not (string= "" cm-singularity-env))
       (setq prefix (concat "singularity exec " cm-singularity-env-args " " cm-singularity-env " "))
@@ -183,8 +182,6 @@ Attention, check that the irony-server is running before you run the command.
 						 cm-configure-cmd
 						 " -DCMAKE_BUILD_TYPE="
 						 cm-build-type
-						 " -DCMAKE_INSTALL_PREFIX="
-						 (concat cm-install-dir "_" (downcase cm-build-type))
 						 ))
 				    :compile (cm-get-env-run-cmd "cmake --build .")
 				    :run (cm-get-env-run-cmd cm-run-cmd)
