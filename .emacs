@@ -33,7 +33,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -62,7 +62,7 @@
 				     helm-themes highlight-indent-guides
 				     impatient-mode irony jedi magit markdown-mode
 				     multi-term neotree projectile
-				     rtags s web-mode yaml-mode xclip))
+				     rtags s undo-fu web-mode yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
 ;; new packages must be installed.
@@ -290,6 +290,11 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 (global-set-key (kbd "<f8>") 'neotree-toggle)
+
+(global-unset-key (kbd "C-_"))
+(global-set-key (kbd "C-_")   'undo-fu-only-undo)
+(global-set-key (kbd "C-:") 'undo-fu-only-redo)
+
 
 ;; =============================================================================
 ;; =================================== other ===================================
