@@ -232,3 +232,10 @@ Thanks to Maximilian Böhme
 		  "xdotool key F5 && "
 		  "xdotool windowactivate $CURRENT_WID")
 		 nil nil))
+
+;; source: https://stackoverflow.com/questions/5147060/how-can-i-access-directory-local-variables-in-my-major-mode-hooks
+;; Add a hook to each major mode which is executed immediately after loading a .dir-locals file
+(add-hook 'hack-local-variables-hook 'run-local-vars-mode-hook)
+(defun run-local-vars-mode-hook ()
+  "Run a hook for the major-mode after the local variables have been processed."
+  (run-hooks (intern (concat (symbol-name major-mode) "-local-vars-hook"))))

@@ -119,23 +119,91 @@ Attention, check that the irony-server is running before you run the command.
 ;; ============================== flycheck setup ===============================
 ;; =============================================================================
 
-;; the irony backend works better at the moment
-;; https://github.com/Andersbakken/rtags/wiki/Usage#rtags-flycheck-integration
-;; (require 'flycheck-rtags)
-;; (setq rtags-autostart-diagnostics t)
-;; (defun my-flycheck-rtags-setup ()
-;;   (flycheck-select-checker 'rtags)
-;;   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-;;   (setq-local flycheck-check-syntax-automatically nil))
-;; (add-hook 'c-mode-hook #'my-flycheck-rtags-setup)
-;; (add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
-;; (add-hook 'objc-mode-hook #'my-flycheck-rtags-setup)
-
-
 ;; enable flycheck-irony
 (require 'flycheck)
+;; to check if we are in a project
+(require 'projectile)
+
+;; the flycheck-hook is before the <mode>-local-vars-hook
 (eval-after-load 'flycheck
   '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+;; ==============================
+;; ==== irony flycheck setup ====
+;; ==============================
+
+;; for internal usage: enable irony flycheck
+(setq my/cpp-enable-irony-flycheck t)
+;; for external usage: enable irony flycheck in any case
+(setq my/cpp-force-irony-flycheck nil)
+
+;; run irony flycheck verification after loading the .dir-locals file
+(add-hook 'c++-mode-local-vars-hook 'my/cpp-irony-verify-flycheck)
+
+(defun my/cpp-irony-verify-flycheck ()
+  "Disable irony flycheck in projects, which has no manual configuration."
+  (progn
+    ;; if irony flycheck is forced, enable it
+    ;; used for example in project files
+    (if my/cpp-force-irony-flycheck
+	(progn
+	  (message "my/cpp: force enable irony flycheck")
+	  (setq-local my/cpp-enable-irony-flycheck t)
+	  )
+      ;; check if the C++ file is in a project
+      ;; a project has a high probability that it may contain dependencies that
+      ;; cannot be resolved automatically
+      (if (projectile-project-p)
+	  (progn
+	    (message "my/cpp: found project: %s" (projectile-project-p))
+	    (setq-local my/cpp-enable-irony-flycheck nil)
+	    )
+	)
+      )
+    ;; disable irony flycheck if necessary
+    (if (eq my/cpp-enable-irony-flycheck nil)
+	(progn
+	  (message "my/cpp: disable irony flycheck")
+	  (make-local-variable 'flycheck-disabled-checkers)
+	  (add-to-list 'flycheck-disabled-checkers 'irony)
+	  )
+      )
+    )
+  )
+
+;; ==============================
+;; ==== rtags flycheck setup ====
+;; ==============================
+
+;; https://github.com/Andersbakken/rtags/wiki/Usage#rtags-flycheck-integration
+;; add rtags flychek to flycheck
+(require 'flycheck-rtags)
+
+;; for external usage: enable rtags flycheck in any case
+(setq my/cpp-force-rtags-flycheck nil)
+
+;; run rtags flycheck verification after loading the .dir-locals file
+(add-hook 'c++-mode-local-vars-hook #'my/cpp-flycheck-rtags-setup)
+
+(defun my/cpp-flycheck-rtags-setup ()
+  "Deactivate rtags flycheck afterwards.
+Leave it active only when manually forced."
+  ;; if enforced, configure rtags flycheck
+  (if my/cpp-force-rtags-flycheck
+      (progn
+	(setq rtags-autostart-diagnostics t)
+	(flycheck-select-checker 'rtags)
+	(setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+	(setq-local flycheck-check-syntax-automatically nil)
+	)
+    ;; disable flychek rtags
+    (progn
+      (message "my/cpp: disable rtags flycheck")
+      (make-local-variable 'flycheck-disabled-checkers)
+      (add-to-list 'flycheck-disabled-checkers 'rtags)
+      )
+    )
+  )
 
 ;; =============================================================================
 ;; ========================= projectile cmake extras ===========================

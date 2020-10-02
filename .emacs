@@ -1,6 +1,9 @@
 ;; absolute path of ~/.emacs.d
 (setq emacs-home (expand-file-name (concat (getenv "HOME") "/.emacs.d/")))
 
+;; disable welcome screen
+(setq inhibit-startup-screen t)
+
 ;; =============================================================================
 ;; =========================== melpa package manager ===========================
 ;; =============================================================================
