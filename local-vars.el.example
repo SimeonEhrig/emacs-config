@@ -1,0 +1,23 @@
+(setq local-llvm-path "/path/to/llvm")
+
+;; set path to std library headers
+(setq irony-additional-clang-options
+      (append '("-I" "/usr/include/x86_64-linux-gnu/c++/9")
+	      irony-additional-clang-options))
+
+(let ((path (concat local-llvm-path "/include/c++/v1")))
+  (setq irony-additional-clang-options
+	(append
+	 (list "-I" path)
+	 irony-additional-clang-options)))
+
+(setq clang-format-executable
+      (concat local-llvm-path "/bin/clang-format"))
+
+(setq company-clang-executable
+      (concat local-llvm-path "/bin/clang"))
+
+(setq company-irony-c-headers--compiler-executable
+      (concat local-llvm-path "/bin/clang"))
+
+(setq rtags-rdm-includes '("/usr/include/x86_64-linux-gnu/c++/9 -I/path/to/llvm/include/c++/v1"))
