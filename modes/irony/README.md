@@ -182,3 +182,7 @@ The C++ mode uses two backends for flycheck: `irony flychek` and `rtags flycheck
 
 - **irony flychek**: Is enabled by default. Will automatically disable when a project is detected (e.g. `.git` or `CMakeLists.txt`), because the `irony flycheck` crashes slightly if it is not configured correctly. To reactivate it, configure `irony` and set the variable `my/cpp-force-irony-flycheck` to `t` in the project file.
 - **rtags flycheck**: Is disabled by default. Configure `rtags` and set variable `my/cpp-force-rtags-flycheck` to `t` in the project file.
+
+# cmake-ide
+
+`cmake-ide` is a utility package which reads cmake builds and set up paths for `irony` and `rtags`. If `cmake-ide` does not detect the build folder correctly, set up the variable `cmake-ide-dir`. Then `cmake-ide` runs automatically.
