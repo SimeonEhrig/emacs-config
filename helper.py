@@ -119,6 +119,31 @@ class Conda_Handler:
             print(output.decode("utf-8"))
             return create_env_process.returncode
 
+    def conda_run(self, command: str) -> int:
+        """run command in the Emacs Conda environment.
+
+        :param command: The command which follow after conda run -n <env>
+        :type command: str
+        :returns: The error code
+        :rtype: int
+
+        """
+        if not self.get_conda_env():
+            raise RuntimeError(
+                "cannot install: conda environment {} does not exists".format(
+                    self.conda_env_name
+                )
+            )
+        else:
+            create_env_process = subprocess.Popen(
+                ["conda", "run", "-n", self.conda_env_name] + command.split(),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            output, error = create_env_process.communicate()
+            print(output.decode("utf-8"))
+            return create_env_process.returncode
+
 
 class Modes_Config_Handler:
     def __init__(self, path: str):
@@ -144,6 +169,9 @@ class Modes_Config_Handler:
             if "conda" in package:
                 for cmd in package["conda"]:
                     conda_handler.conda_install(cmd)
+            if "pip" in package:
+                for cmd in package["pip"]:
+                    conda_handler.conda_run("pip3 install " + cmd)
 
     def set_lisp(self, lisp: List[str], conda_env_root: str):
         """If the key word "lisp" is detected, add lisp code to the lisp list.

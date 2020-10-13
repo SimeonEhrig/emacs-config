@@ -1,0 +1,7 @@
+{
+    "grip-mode" : {
+	"comment" : "The grip-mode renders Markdown files and display them in the (built-in) web browser.",
+	"pip" : ["grip"],
+	"vars" : {"grip-binary-path" : "<env_root>/bin/grip"}
+    }
+}

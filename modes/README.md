@@ -25,5 +25,6 @@ Options can be:
 
 * **"comment" : "text"**: Text that is used to explain the configuration of the package.
 * **"conda" : ["package 1", "package 2"]**: Install a Conda package in the Emacs Conda environment. You can use all Conda options that are available after the `conda install` command, e.g. `-c conda-forge black`.
+* **"pip" : ["package 1", "package 2"]**: Install a pip package in the Emacs Conda environment. You can use all pip options that are available after the `conda run -n <env> pip3 install` command, e.g. `hpccm >0.28`.
 * **"lisp" : ["lisp code"]**: The Lisp code is copied directly into the init script. Please note the escaping string.
 * **"vars" : {"var name 1" : "value 1", "var name 2" : "[value 21, value 22]" }**: Each dictionary entry of `vars` is transforming into a lisp `(setq ...)` statement. Two types are supported, string and list of string. Depending of the type, it is transformed into `(setq <name> "<value">)` or `(setq <name> '("<value 1" "<value 2">))`. The value type is string each time. If a different type is required, use raw `lisp` code. You can use the `<env_root>` placeholder for paths, e.g. if you want to refer to an executable installed via Conda: `<env_root>/bin/exe`.
