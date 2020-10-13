@@ -271,3 +271,9 @@ Leave it active only when manually forced."
     (cm-set-projectile-project-type)
     )
   )
+
+;; ==============================
+;; ========= cmake ide ==========
+;; ==============================
+
+(cmake-ide-setup)

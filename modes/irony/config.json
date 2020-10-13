@@ -1,0 +1,7 @@
+{
+    "cmake-ide" : {
+	"comment" : "cmake-ide is package, which contains helper functions to extract setup information from CMake project for other packages, like irony or rtags.",
+	"conda" : ["-c conda-forge cmake"],
+	"vars" : {"cmake-ide-cmake-command" : "<env_root>/bin/cmake"}
+    }
+}
