@@ -106,12 +106,12 @@ Path to the clang executable
 
 ## Install
 
-Since the server and client are standalone applications, it is necessary to compile them after installing the rtags emacs package.
+Since the server and client are standalone applications, it is necessary to compile them after installing the rtags emacs package. If you have installed Clang/LLVM in the default location (e.g. via system package manager), you can run `M-x rtags-install`. If your Clang/LLVM is not install in the default location (e.g. install via `Spack`), you have to run the following command in a **lisp buffer**.
 
 ```lisp
 ;; run the following command in scratch after you have activated the rtags mode
 ;; -DLIBCLANG_LLVM_CONFIG_EXECUTABLE is only necessary if you have not installed the clang toolchain in the default path
-(rtags-install nil "-DRTAGS_NO_ELISP_FILES=1 -DLIBCLANG_LLVM_CONFIG_EXECUTABLE=/path/to/llvm-config")
+(rtags-install nil "-DCMAKE_BUILD_RPATH=ON -DCMAKE_BUILD_RPATH=/path/to/llvm/lib/ -DEMACS_EXECUTABLE=/path/to/emacs/bin/emacs")
 ```
 
 After compiling and installing, it make sense to add the `bin` folder path to your `PATH` variable, as there is no emacs function to initialize a project index. The usual path is `.emacs.d/elpa/rtags-<hash>/rtags-<version>/bin`.
