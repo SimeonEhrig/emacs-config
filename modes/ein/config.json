@@ -1,0 +1,6 @@
+{
+    "ein" : {
+	"comment" : "EIN (emacs ipython notebook) is a frontend to use Jupyter notebooks in Emacs.",
+	"conda" : ["-c conda-forge jupyter"]
+    }
+}
