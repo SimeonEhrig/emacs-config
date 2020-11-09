@@ -317,6 +317,7 @@
   (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
 (add-hook 'prog-mode-hook #'nuke_traling)
 (add-hook 'markdown-mode-hook #'nuke_traling)
+(add-hook 'rst-mode-hook #'nuke_traling)
 
 ;; =============================================================================
 ;; ================================== Macros ===================================
