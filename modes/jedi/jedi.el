@@ -50,3 +50,15 @@
 
 (add-to-list 'flycheck-checkers 'python-pycompile t)
 (flycheck-add-next-checker 'python-pycompile 'python-mypy t)
+
+;; if variable is true, enable blacken mode in this buffer
+(setq my-enbale-blacken-mode nil)
+
+(add-hook
+ 'python-mode-local-vars-hook
+ (lambda()
+   (if my-enbale-blacken-mode
+       (blacken-mode)
+     )
+   )
+ )

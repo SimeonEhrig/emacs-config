@@ -17,3 +17,5 @@ Flycheck is a framework that makes it possible to highlight warnings and errors 
 # Black
 
 [Black](https://github.com/psf/black) is source code formatter. `Black` is not enabled by default for a Python buffer. If you want to use `Black`, you have to enable the `blacken-mode`.
+
+You can enable `black` for a project, if you set the variable `my-enbale-blacken-mode` to `t` in your `.dir-locals.el`.
