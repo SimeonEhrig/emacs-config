@@ -36,7 +36,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (grip-mode cmake-ide undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (use-package grip-mode cmake-ide undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -65,7 +65,7 @@
 				     helm-themes highlight-indent-guides
 				     impatient-mode irony jedi magit markdown-mode
 				     multi-term neotree projectile
-				     rtags s undo-fu web-mode yaml-mode xclip))
+				     rtags s undo-fu use-package web-mode yaml-mode xclip))
 
 ;; The file run_melpa contains the variable run-melpa. If the variable is true,
 ;; new packages must be installed.
@@ -107,6 +107,8 @@
 ;; =============================================================================
 ;; =============================== enable modes ================================
 ;; =============================================================================
+
+(require 'use-package)
 
 ;; the ido mode improve the path navigation in the mini buffer
 (require 'ido)
@@ -176,6 +178,7 @@
 ;; setup modes with indentation highlighting
 (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
 (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
+
 ;; =============================================================================
 ;; =========================== configure main usage ============================
 ;; =============================================================================
