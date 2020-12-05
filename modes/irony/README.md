@@ -17,6 +17,8 @@ If you want to rebuild the server e.g. for testing or updates, you can permanent
 (setq irony-extra-cmake-args '("-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON" "-DCMAKE_INSTALL_RPATH=/path/to/libclang.so"))
 ```
 
+**Attention!** Because of a bug, you have to remote the `\` from `-DCMAKE_INSTALL_PREFIX\=<...>`, `-DCMAKE_INSTALL_RPATH_USE_LINK_PATH\=ON` and `-DCMAKE_INSTALL_RPATH=/path/to/libclang.so` during running `M-x irony-install-server`.
+
 ## Disable the company-irony backend
 
 Sometimes the `company-irony` backend has some problems with the completion. In this case, it might be helpful to use the `company-clang` backend. To use the `company-clang` backend, simply run the emacs function `disable-company-irony`. You can check if it works by running emacs command `company-diag` after executing a completion command.
