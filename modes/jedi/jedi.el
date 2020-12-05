@@ -9,7 +9,7 @@
 (defun my/python-company-hook ()
   (add-to-list 'company-backends 'company-jedi))
 
-(add-hook 'python-mode-hook 'python-company-hook)
+(add-hook 'python-mode-hook 'my/python-company-hook)
 
 ;; the function sets the Python environment of the Jedi auto-completion
 ;; there is a order which environment is used if the environment before is not set
