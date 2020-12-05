@@ -75,6 +75,8 @@ Attention, check that the irony-server is running before you run the command.
 (define-key global-map (kbd "C-<") (function rtags-find-virtuals-at-point))
 (define-key global-map (kbd "M-i") (function tags-imenu))
 
+(define-key c-mode-base-map (kbd "M-<up>") (function rtags-location-stack-back))
+(define-key c-mode-base-map (kbd "M-<down>") (function rtags-location-stack-forward))
 
 ;; =============================================================================
 ;; ================================ tags setup =================================
@@ -282,4 +284,19 @@ Leave it active only when manually forced."
 ;; ========= cmake ide ==========
 ;; ==============================
 
-(cmake-ide-setup)
+;; run cmake-ide-setup after loading the .dir-locals file
+(add-hook 'c++-mode-local-vars-hook #'my/cpp-cmake-ide-setup)
+
+(defun my/cpp-cmake-ide-setup ()
+  "Enable cmake-ide, if cmake-ide-build-dir
+and cmake-project-ide. Otherwise, cmake-ide does not
+work and increases the time to open a file."
+  (if (and (bound-and-true-p cmake-ide-build-dir)
+	   (bound-and-true-p cmake-ide-project-dir)
+	   )
+      (progn
+	(message "my/cpp: enable cmake-ide")
+	(cmake-ide-setup)
+	)
+    )
+  )
