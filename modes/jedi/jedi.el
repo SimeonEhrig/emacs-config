@@ -1,16 +1,15 @@
 ;; jedi is a python mode (https://github.com/tkf/emacs-jedi)
-;; it improves developing python in emacs
-(add-hook 'python-mode-hook 'jedi:setup)
+;; it is disabled because it does not work with company
+;; but it is installed to use some navigation functions
 
-(add-hook
- 'jedi-mode-hook
- (lambda()
-   ;; show completion hints
-   (define-key jedi-mode-map (kbd "M-#") (function jedi:complete))
-   ;; accept a completion
-   (define-key ac-complete-mode-map (kbd "M-#") 'ac-expand)
-   )
- )
+;; it improves developing python in emacs
+;;(add-hook 'python-mode-hook 'jedi:setup)
+
+;; add jedi-company backend
+(defun my/python-company-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'python-company-hook)
 
 ;; the function sets the Python environment of the Jedi auto-completion
 ;; there is a order which environment is used if the environment before is not set

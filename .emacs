@@ -36,7 +36,7 @@
  '(custom-enabled-themes (quote (tsdh-dark)))
  '(package-selected-packages
    (quote
-    (use-package grip-mode cmake-ide undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+    (company-quickhelp use-package grip-mode cmake-ide undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -58,8 +58,8 @@
 ;; =============================================================================
 
 ;; all packages, which have to installed via emacs package manager
-(setq my-package-list '(blacken clang-format cmake-ide cmake-mode company company-irony company-irony-c-headers
-				     company-web conda dictcc diff-hl dash ein epc ggtags grip-mode
+(setq my-package-list '(blacken clang-format cmake-ide cmake-mode company company-irony company-irony-c-headers company-jedi
+				     company-quickhelp company-web conda dictcc diff-hl dash ein epc ggtags grip-mode
 				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
 				     flyspell-popup helm helm-gtags helm-rtags helm-projectile
 				     helm-themes highlight-indent-guides
@@ -138,6 +138,9 @@
     (add-to-list 'company-backends backend))
   (eval-after-load 'company 'company-backends)
   )
+;; this package enables a function to display the function documentation during running company completion
+;; run `M-x company-show-doc-buffer` to verify if your company backend supports this
+(company-quickhelp-mode)
 
 ;; library to managing projects, e.g a git repo is a project
 (require 'projectile)
