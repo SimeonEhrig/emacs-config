@@ -110,10 +110,16 @@ Attention, check that the irony-server is running before you run the command.
 ;; =============================== company setup ===============================
 ;; =============================================================================
 
+(require 'rtags)
+(require 'company-rtags)
+
+(setq rtags-completions-enabled t)
+
 ;; enable the company-irony by default
+;; if the project is not indexed with rtags, irony is used for auto-completion
 (add-hook 'irony-mode-hook
 	  (lambda ()
-	    (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
+	    (add-to-list 'company-backends '(company-irony-c-headers company-rtags company-irony))))
 
 ;; =============================================================================
 ;; ============================== flycheck setup ===============================
