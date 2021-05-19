@@ -33,10 +33,9 @@
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(custom-enabled-themes (quote (tsdh-dark)))
+ '(custom-enabled-themes '(tsdh-dark))
  '(package-selected-packages
-   (quote
-    (company-rtags company-quickhelp use-package grip-mode cmake-ide undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip))))
+   '(yasnippet company-rtags company-quickhelp use-package grip-mode cmake-ide undo-fu highlight-indent-guides conda blacken company-web web-mode impatient-mode clang-format multi-term company-irony-c-headers helm-rtags flycheck-rtags rtags ein diff-hl neotree flycheck-irony flycheck-mypy pylint flycheck magit helm-projectile ggtags company-irony irony projectile yaml-mode s dash dictcc helm-gtags helm-themes helm cmake-mode company company-jedi jedi epc markdown-mode flyspell-popup xclip)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,7 +62,7 @@
 				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
 				     flyspell-popup helm helm-gtags helm-rtags helm-projectile
 				     helm-themes highlight-indent-guides
-				     impatient-mode irony jedi magit markdown-mode
+				     impatient-mode irony yasnippet jedi magit markdown-mode
 				     multi-term neotree projectile
 				     rtags s undo-fu use-package web-mode yaml-mode xclip))
 
@@ -181,6 +180,10 @@
 ;; setup modes with indentation highlighting
 (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
 (add-hook 'python-mode-hook 'highlight-indent-guides-mode)
+
+;; enable yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;; =============================================================================
 ;; =========================== configure main usage ============================
