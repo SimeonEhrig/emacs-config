@@ -1,0 +1,7 @@
+{
+    "shellcheck" : {
+	"comment" : "shellcheck is a tool to verify the semantic of bash scripts",
+	"conda" : ["-c conda-forge shellcheck"],
+	"vars" : {"flymake-shellcheck-path" : "<env_root>/bin/shellcheck"}
+    }
+}

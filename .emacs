@@ -60,6 +60,7 @@
 (setq my-package-list '(blacken clang-format cmake-ide cmake-mode company company-irony company-irony-c-headers company-jedi
 				     company-rtags company-quickhelp company-web conda dictcc diff-hl dash ein epc ggtags grip-mode
 				     flycheck flycheck-irony flycheck-mypy flycheck-rtags
+				     flymake-shellcheck
 				     flyspell-popup helm helm-gtags helm-rtags helm-projectile
 				     helm-themes highlight-indent-guides
 				     impatient-mode irony yasnippet jedi magit markdown-mode
